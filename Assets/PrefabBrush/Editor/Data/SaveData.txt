@@ -1,8 +1,8 @@
 Layer Selection: Default
 Brush Max Size: 50
-Brush Size: 9.2
+Brush Size: 12.5
 Fill Mode: True
-Fill Rate: 0.041
+Fill Rate: 0.138
 
 Game Object: Assets/Asset_Store_Assets/DAX/Low Poly Forest/Tree V1/Prefabs V1/Tree_0_00.prefab
 Layer: Ground
@@ -14,8 +14,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -32,8 +32,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -50,8 +50,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -68,8 +68,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -86,8 +86,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -104,8 +104,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -122,8 +122,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -140,8 +140,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -158,8 +158,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -176,8 +176,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -194,8 +194,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -212,8 +212,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -230,8 +230,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -248,8 +248,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -266,8 +266,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -284,8 +284,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -302,8 +302,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -320,8 +320,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -338,8 +338,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -356,8 +356,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -374,8 +374,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -392,8 +392,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -410,8 +410,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -428,8 +428,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -446,8 +446,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -464,8 +464,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -482,8 +482,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -500,8 +500,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -518,8 +518,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -536,8 +536,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -554,8 +554,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -572,8 +572,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -590,8 +590,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -608,8 +608,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -626,8 +626,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -644,8 +644,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -662,8 +662,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -680,8 +680,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -698,8 +698,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -716,8 +716,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -734,8 +734,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -752,8 +752,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -770,8 +770,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -788,8 +788,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -806,8 +806,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -824,8 +824,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -842,8 +842,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -860,8 +860,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -878,8 +878,8 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
@@ -896,13 +896,10 @@ Random Rotation X: False
 Random Rotation Y: True
 Random Rotation Z: False
 Random Scale Toggle: True
-Random Scale Min: 5
-Random Scale Max: 9
+Random Scale Min: 3
+Random Scale Max: 7
 Fixed Rotation Toggle: False
 Fixed Rotation X: 0
 Fixed Rotation Y: 0
 Fixed Rotation Z: 0
 Depth: 0
-
-Group Names:
-Trees
