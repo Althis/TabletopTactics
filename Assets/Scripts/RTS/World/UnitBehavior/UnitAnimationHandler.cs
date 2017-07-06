@@ -45,11 +45,5 @@ namespace RTS.World.UnitBehavior
 			}
 			animator.SetFloat("Speed", speed);
 		}
-
-		internal void setSpeed(float s)
-		{
-			animator.speed = s;
-		}
-
 	}
 }

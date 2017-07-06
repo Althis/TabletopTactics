@@ -105,9 +105,6 @@ namespace RTS.World
         }
         void Start()
         {
-			curPos = transform.position;
-			oldPos = curPos;
-			//animationHandler.setSpeed (1.0f);
         }
         void Update()
         {
