@@ -43,6 +43,7 @@ namespace RTS.AI
                 int i = 0;
                 while (i < hitColliders.Length)
                 {
+                    /* 
                     IHittable[] seenEnemies = hitColliders[i].gameObject.GetComponents<IHittable>();
                     int j = 0;
                     while (j < seenEnemies.Length)
@@ -51,6 +52,8 @@ namespace RTS.AI
                         j++;
                     }
                     i++;
+                    */
+                    Debug.Log(hitColliders[i].gameObject);
                 }
             }
             return finalEnemiesList;
