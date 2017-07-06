@@ -62,7 +62,7 @@ namespace RTS.World.UnitBehavior
         {
             animationHandler.OnHitFrame -= ExecuteAttack;
             target.OnHit((int)unit.AttackDamage);
-            this.state = State.Free;
+            StopAttacking();
         }
     }
 }

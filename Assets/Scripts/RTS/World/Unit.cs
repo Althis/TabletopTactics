@@ -9,19 +9,19 @@ using System;
 namespace RTS.World
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class Unit : MonoBehaviour, IHittable, IInteractive, IHealth, ISelectionUnit
+    public class Unit : MonoBehaviour, IHittable, IInteractive, IHealth, ISelectionUnit, IHighlightable
     {
+        public enum ClassType { Infantry, Artillary, Cavalry, Siege}
         [System.Serializable]
         public class Settings
         {
             public UnitAttackHandler.Settings attackSettings;
+            public ClassType Type;
             public float range;
             public int damage;
             public float MaxHealth = 100;
         }
 
-        public enum UnitType { Infantry, Artillary, Cavalry, Siege};
-        public UnitType myType;
 
 		//animação
 		public Vector3 curPos;
@@ -31,14 +31,17 @@ namespace RTS.World
 
         public Settings settings;
 
-        public Transform selectionIndicator;
+        //public Transform selectionIndicator;
         public UnitAnimationHandler animationHandler;
 
         [Space()]
-        public Team team;
+        [SerializeField]
+        private Team startTeam;
 
         public event System.Action OnDestroyed;
         public event System.Action<float> OnHealthChanged;
+        public event System.Action OnHighlightOn;
+        public event System.Action OnHighlightOff;
         public event Action OnSelected
         {
             add
@@ -63,28 +66,31 @@ namespace RTS.World
         }
 
         NavMeshAgent navMeshAgent;
-        int health;
+        float health;
         UnitSquadHandler squadHandler;
         UnitAttackHandler attackHandler;
+        Team team;
 
-        public ActionInfo CurrentAction { get; set; }
+        public UnitAction CurrentAction { get; set; }
 
 
 
         public bool CanTarget { get { return true; } }
         public bool Targetable { get { return true; } }
-        public bool Hittable { get { return true; } }
+        public bool Highlightable { get { return true; } }
+        public bool Initialized { get; private set; }
 
         public float MaxHealth { get { return settings.MaxHealth; } }
         public float Health { get { return health; } }
         public float AttackDamage { get { return settings.damage; } }
         public float Range { get { return settings.range; } }
-        public bool Destroyed { get; private set; }
-
+        public ClassType Type { get { return settings.Type; } }
 
         public GameObject Owner { get { return gameObject; } }
         public Vector3 position { get { return transform.position; } }
         public Squad Squad { get { return squadHandler.Squad; } }
+        public Team Team { get { return team; } }
+        public Team StartTeam { set { Debug.Assert(!Initialized); startTeam = value; } }
 
         public bool IsInRange { get { return CurrentAction != null && 
                     CurrentAction.Target != null && attackHandler.IsInRange(CurrentAction.Target.position); } }
@@ -99,12 +105,18 @@ namespace RTS.World
 
         void Awake()
         {
+            this.team = startTeam;
+            Initialized = true;
             navMeshAgent = GetComponent<NavMeshAgent>();
             squadHandler = new UnitSquadHandler(this);
             attackHandler = new UnitAttackHandler(this, animationHandler, settings.attackSettings);
         }
         void Start()
         {
+			curPos = transform.position;
+			oldPos = curPos;
+			//animationHandler.setSpeed (1.0f);
+            health = MaxHealth;
         }
         void Update()
         {
@@ -122,8 +134,10 @@ namespace RTS.World
 
             if (CurrentAction == null)
                 return;
-            if (CurrentAction.Target != null && CurrentAction.Target.Destroyed)
+            if (!CurrentAction.IsValid)
             {
+                if (CurrentAction.Mode != ActionMode.Attack && attackHandler.IsAttacking)
+                    attackHandler.StopAttacking();
                 CurrentAction = null;
                 return;
             }
@@ -132,26 +146,27 @@ namespace RTS.World
                 //Nota de Rodrigo pra ele mesmo. Refatorar todo esse trecho!
                 case ActionMode.Attack:
                     var inRange = IsInRange;
-                    navMeshAgent.SetDestination(CurrentAction.position);
+                    navMeshAgent.SetDestination(CurrentAction.position ?? default(Vector3));
                     if (!inRange && attackHandler.IsAttacking)
                     {
                         attackHandler.StopAttacking();
                     }
                     else if (inRange && !attackHandler.IsAttacking)
                     {
-                        if (CurrentAction.Target.Destroyed == false)
+                        if (CurrentAction.Target != null)
                         {
                             attackHandler.StartAttacking(CurrentAction.Target);
                         }
                     }
                     break;
                 case ActionMode.Move:
-                    navMeshAgent.SetDestination(CurrentAction.position);
-                    attackHandler.StopAttacking();
+                    if (attackHandler.IsAttacking)
+                        attackHandler.StopAttacking();
+                    navMeshAgent.SetDestination(CurrentAction.position ?? default(Vector3));
                     break;
-                case ActionMode.Empty:
-                    navMeshAgent.SetDestination(position);//stop walking by "reaching" ourselves
-                    attackHandler.StopAttacking(); // pra evitar que unidades tentem acessar gente morta
+                case ActionMode.Idle:
+                    if (attackHandler.IsAttacking)
+                        attackHandler.StopAttacking();
                     break;
                 default:
                     break;
@@ -159,20 +174,37 @@ namespace RTS.World
         }
         void OnDestroy()
         {
-            Destroyed = true;
             if (OnDestroyed != null)
                 OnDestroyed();
         }
         
+
+
         public void OnHit(int damage)
         {
+            var delta = -damage;
             this.health -= damage;
+            if (OnHealthChanged != null)
+                OnHealthChanged(health);
             if (this.health <= 0)
-                GameObject.Destroy(this);
+                Die();
+        }
+
+        public void HighlightOn()
+        {
+            if (OnHighlightOn != null)
+                OnHighlightOn();
+        }
+        public void HighlightOff()
+        {
+            if (OnHighlightOff != null)
+                OnHighlightOff();
         }
 
 
-
-        
+        void Die()
+        {
+            GameObject.Destroy(gameObject);
+        }
     }
 }

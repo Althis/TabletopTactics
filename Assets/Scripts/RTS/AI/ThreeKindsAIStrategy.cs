@@ -56,12 +56,12 @@ namespace RTS.AI
             return finalEnemiesList;
         }
 
-        private IHittable defineEnemy(Unit.UnitType squaddieType, HashSet<IHittable> enemiesList, Dictionary<IHittable, int>numberOfSiblingsOnEnemy, Unit squaddie)
+        private IHittable defineEnemy(Unit.ClassType squaddieType, HashSet<IHittable> enemiesList, Dictionary<IHittable, int>numberOfSiblingsOnEnemy, Unit squaddie)
         {
             IHittable currentTarget = null;
             switch (squaddieType)
             {
-                case Unit.UnitType.Infantry:
+                case Unit.ClassType.Infantry:
                     float smallestDistance = float.PositiveInfinity;
                     foreach (var enemy in enemiesList)
                     {
@@ -99,7 +99,7 @@ namespace RTS.AI
             {// se nós estamos em modo defensivo (animosity==false) e não há alvo-posição, não há nada a fazer
                 foreach (var squaddie in squad.Units)
                 {
-                    squaddie.CurrentAction = ActionInfo.MoveAction(squad.TargetInfo.Position);
+                    squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position);
                 }
             }
 
@@ -112,14 +112,14 @@ namespace RTS.AI
                     {
                         foreach (var squaddie in squad.Units)
                         {
-                            squaddie.CurrentAction = ActionInfo.MoveAction(squad.TargetInfo.Position);
+                            squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position);
                         }
                     }
                     else
                     {
                         foreach (var squaddie in squad.Units)
                         {
-                            squaddie.CurrentAction = ActionInfo.EmptyAction();
+                            squaddie.CurrentAction = UnitAction.IdleAction();
                         }
                     }
                 }
@@ -142,10 +142,10 @@ namespace RTS.AI
                         {
                             localLockedEnemies.Add(squaddie, null);
                         }
-                        else if (localLockedEnemies[squaddie]!=null && localLockedEnemies[squaddie].Destroyed)
-                        {
-                            localLockedEnemies[squaddie] = null;
-                        }
+                        //else if (localLockedEnemies[squaddie] != null && localLockedEnemies[squaddie].Destroyed)
+                        //{
+                        //    localLockedEnemies[squaddie] = null;
+                        //}
                     }
 
                             Dictionary<IHittable, int> numberOfSiblingsOnEnemy;
@@ -171,10 +171,10 @@ namespace RTS.AI
                     {
                         if (localLockedEnemies[squaddie]==null) //then we have to search for an enemy
                         {
-                            IHittable currentTarget = defineEnemy(squaddie.myType, enemiesList, numberOfSiblingsOnEnemy, squaddie);
+                            IHittable currentTarget = defineEnemy(squaddie.Type, enemiesList, numberOfSiblingsOnEnemy, squaddie);
                             if (currentTarget != null)
                             {
-                                squaddie.CurrentAction = ActionInfo.AttackAction(currentTarget);
+                                squaddie.CurrentAction = UnitAction.AttackAction(currentTarget);
                                 numberOfSiblingsOnEnemy[currentTarget]++; // já foi checado antes se todos os inimigos tinham uma entrada no dicionário
                             }
                             else
@@ -183,14 +183,14 @@ namespace RTS.AI
                                 //o comportamento a seguir é temporário!
                                 if (squad.TargetInfo != null && squad.TargetInfo.Position != null)
                                 {
-                                    squaddie.CurrentAction = ActionInfo.MoveAction(squad.TargetInfo.Position);
+                                    squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position);
                                 }
                             }
                             localLockedEnemies[squaddie] = currentTarget;
                         }
                         else
                         {
-                            squaddie.CurrentAction = ActionInfo.AttackAction(localLockedEnemies[squaddie]);
+                            squaddie.CurrentAction = UnitAction.AttackAction(localLockedEnemies[squaddie]);
                         }
                     }
                 }

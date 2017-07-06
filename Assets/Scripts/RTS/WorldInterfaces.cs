@@ -11,6 +11,8 @@ namespace RTS
         World.Squads.Squad Squad { get; }
         bool Selectable { get; }
         GameObject Owner { get; }
+
+        Team Team { get; }
     }
 
 
@@ -24,10 +26,10 @@ namespace RTS
 
     public interface IHittable: ITargetable
     {
-        bool Hittable { get; }
 
         void OnHit(int damage);
 
+        Team Team { get;}
     }
 
     public interface ITargetable: IDestructionNotifier
@@ -45,7 +47,6 @@ namespace RTS
     public interface IDestructionNotifier
     {
         event Action OnDestroyed;
-        bool Destroyed { get; }
     }
 
     public interface IHealth

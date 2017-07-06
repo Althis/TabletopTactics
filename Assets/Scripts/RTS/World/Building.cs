@@ -21,21 +21,23 @@ namespace RTS.World
         public Settings settings;
 
         [Space]
-        public Team team;
+        [SerializeField]
+        private Team team;
+
+        [SerializeField]
+        private bool targetable;
 
         public event System.Action<float> OnHealthChanged;
 
 
 
         public event System.Action OnDestroyed;
-        public bool Targetable  {  get { return true; } }
-        public bool Hittable { get { return true; } }
+        public bool Targetable { get { return targetable; } }
         public GameObject Owner { get { return gameObject; } }
+        public Team Team { get { return team; } }
         public Vector3 position { get { return transform.position; } }
         public float MaxHealth { get { return settings.MaxHealth; } }
         public float Health { get { return health; } }
-
-        public bool Destroyed { get; private set; }
 
         void Awake()
         {
@@ -43,7 +45,6 @@ namespace RTS.World
         }
         public void OnDestroy()
         {
-            Destroyed = true;
             if (OnDestroyed != null)
                 OnDestroyed();
         }
@@ -51,7 +52,7 @@ namespace RTS.World
 
         public void OnHit(int damage)
         {
-            if (Destroyed == false) // isso é pra evitar que, ao sofrer ataques simultâneos, a morte ocorra (ou tente ocorrer) várias vezes
+            if (this != null) // isso é pra evitar que, ao sofrer ataques simultâneos, a morte ocorra (ou tente ocorrer) várias vezes
             {
                 this.health -= damage;
                 this.OnHealthChanged(this.health);
