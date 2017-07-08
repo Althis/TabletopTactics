@@ -63,10 +63,11 @@ namespace RTS.World
         
         public void OnHealthZero()
         {
+            int a = team.Morale;
+            int b = settings.DeathMoraleLoss;
             if (OnDestroyed != null)
                 OnDestroyed();
             GameObject.Destroy(gameObject);
-            team.Morale -= settings.DeathMoraleLoss;
         }
 
     }

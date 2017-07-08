@@ -33,27 +33,55 @@ namespace RTS.AI
             LockedEnemies = new Dictionary<Squad, Dictionary<Unit, IHittable>>();
         }
 
+        private bool isEnemy (Unit unit, IHittable supposedEnemy)
+        {
+            if (supposedEnemy.Team == unit.Team)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         private HashSet<IHittable> FindSquadEnemies(Squad squad)
         {
             HashSet<IHittable> finalEnemiesList = new HashSet<IHittable>();
-
             foreach (var unit in squad.Units)
             {
+                if (unit.Equals(null))
+                {
+                    continue;
+                }
                 Collider[] hitColliders = Physics.OverlapSphere(unit.position, viewRadius);
                 int i = 0;
                 while (i < hitColliders.Length)
                 {
-                    /* 
-                    IHittable[] seenEnemies = hitColliders[i].gameObject.GetComponents<IHittable>();
-                    int j = 0;
-                    while (j < seenEnemies.Length)
+                    ChildOfInteractiveGameObject[] seenEnemies = hitColliders[i].gameObject.GetComponents<ChildOfInteractiveGameObject>();
+                    if (seenEnemies != null && seenEnemies.Length != 0)
                     {
-                        finalEnemiesList.Add(seenEnemies[j]);
-                        j++;
+                        int j = 0;
+                        while (j < seenEnemies.Length)
+                        {
+                            IHittable finalEnemy = seenEnemies[j].Owner.GetComponent<IHittable>();
+                            if (finalEnemy != null && this.isEnemy(unit, finalEnemy))
+                            {
+                                finalEnemiesList.Add(finalEnemy);
+                            }
+                            j++;
+                        }
                     }
-                    i++;
+
+
+                    /*
+                    ChildOfInteractiveGameObject[] seenEnemies = hitColliders[i].gameObject.GetComponents<ChildOfInteractiveGameObject>();
+                    if (seenEnemies != null && seenEnemies.Length != 0)
+                    {
+                        Debug.Log(seenEnemies[0].Owner);
+                    }
                     */
-                    Debug.Log(hitColliders[i].gameObject);
+                    i++;
                 }
             }
             return finalEnemiesList;
@@ -145,13 +173,9 @@ namespace RTS.AI
                         {
                             localLockedEnemies.Add(squaddie, null);
                         }
-                        //else if (localLockedEnemies[squaddie] != null && localLockedEnemies[squaddie].Destroyed)
-                        //{
-                        //    localLockedEnemies[squaddie] = null;
-                        //}
                     }
 
-                            Dictionary<IHittable, int> numberOfSiblingsOnEnemy;
+                    Dictionary<IHittable, int> numberOfSiblingsOnEnemy;
                     try
                     {
                         numberOfSiblingsOnEnemy = numberOfSquaddiesOnEnemy[squad];
@@ -170,14 +194,18 @@ namespace RTS.AI
                         }
                     }
 
-                    foreach (var squaddie in squad.Units)
+                    foreach (var squaddie in squad.Units) //action definition loop
                     {
+                        if (squaddie.Equals(null))
+                        {
+                            continue;
+                        }
                         if (localLockedEnemies[squaddie]==null) //then we have to search for an enemy
                         {
                             IHittable currentTarget = defineEnemy(squaddie.Type, enemiesList, numberOfSiblingsOnEnemy, squaddie);
                             if (currentTarget != null)
                             {
-                                squaddie.CurrentAction = UnitAction.AttackAction(currentTarget);
+                                squaddie.CurrentAction = UnitAction.AttackAction(currentTarget, currentTarget.position);
                                 numberOfSiblingsOnEnemy[currentTarget]++; // já foi checado antes se todos os inimigos tinham uma entrada no dicionário
                             }
                             else
@@ -191,9 +219,18 @@ namespace RTS.AI
                             }
                             localLockedEnemies[squaddie] = currentTarget;
                         }
+                        //defineAttackPosition (squaddie.Type, localLockedEnemies[squaddie], squaddie); //pra definir pra onde a unidade se move ao atacar (a formação de ataque)
                         else
                         {
-                            squaddie.CurrentAction = UnitAction.AttackAction(localLockedEnemies[squaddie]);
+                            if (!localLockedEnemies[squaddie].Equals(null) && localLockedEnemies!=null)
+                            {
+                                squaddie.CurrentAction = UnitAction.AttackAction(localLockedEnemies[squaddie], localLockedEnemies[squaddie].position);
+                            }
+                            else
+                            {
+                                localLockedEnemies[squaddie] = null;
+                            }
+                           
                         }
                     }
                 }

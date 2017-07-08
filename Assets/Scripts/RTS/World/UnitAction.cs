@@ -31,11 +31,6 @@ namespace RTS.World
             Target = null;
             IsValid = false;
         }
-
-        public static UnitAction AttackAction(IHittable target)
-        {
-            return new UnitAction(ActionMode.Attack, target, target.position);
-        }
         public static UnitAction AttackAction(IHittable target, Vector3 position)
         {
             return new UnitAction(ActionMode.Attack, target, position);

@@ -22,6 +22,8 @@ namespace RTS.World
             public float MaxHealth = 100;
         }
 
+        //death
+        private bool amDead;
 
 		//animação
 		public Vector3 curPos;
@@ -117,6 +119,7 @@ namespace RTS.World
 			oldPos = curPos;
 			//animationHandler.setSpeed (1.0f);
             health = MaxHealth;
+            amDead = false;
         }
         void Update()
         {
@@ -175,7 +178,9 @@ namespace RTS.World
         void OnDestroy()
         {
             if (OnDestroyed != null)
+            {
                 OnDestroyed();
+            }
         }
         
 
@@ -187,7 +192,13 @@ namespace RTS.World
             if (OnHealthChanged != null)
                 OnHealthChanged(health);
             if (this.health <= 0)
-                Die();
+            {
+                if (!amDead)
+                {
+                    amDead = true;
+                    Destroy(gameObject);
+                }
+            }
         }
 
         public void HighlightOn()
@@ -199,12 +210,6 @@ namespace RTS.World
         {
             if (OnHighlightOff != null)
                 OnHighlightOff();
-        }
-
-
-        void Die()
-        {
-            GameObject.Destroy(gameObject);
         }
     }
 }

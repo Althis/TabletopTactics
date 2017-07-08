@@ -106,7 +106,7 @@ namespace RTS.AI
                                 currentTarget = enemy;
                             }
                         }
-                        squaddie.CurrentAction = UnitAction.AttackAction(currentTarget);
+                        squaddie.CurrentAction = UnitAction.AttackAction(currentTarget, currentTarget.position);
                     }
                 }
             }

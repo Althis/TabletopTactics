@@ -51,7 +51,7 @@ namespace RTS.AI
             { 
                 foreach (var squaddie in squad.Units)
                 {
-                    squaddie.CurrentAction = UnitAction.AttackAction(squad.TargetInfo.Target);
+                    squaddie.CurrentAction = UnitAction.AttackAction(squad.TargetInfo.Target, squad.TargetInfo.Target.position);
                 }
             }
         }
