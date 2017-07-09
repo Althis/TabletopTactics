@@ -29,8 +29,10 @@ namespace RTS.Inputs.Mouse
         //Funções chamadas pela Unity
         void Update()
         {
-            selectionHandler.Update();
-            targetingHandler.Update();
+            if (!(selectionHandler==null || selectionHandler.Equals(null)))
+                selectionHandler.Update();
+            if (!(targetingHandler == null || targetingHandler.Equals(null)))
+                targetingHandler.Update();
         }
         void Start()
         {

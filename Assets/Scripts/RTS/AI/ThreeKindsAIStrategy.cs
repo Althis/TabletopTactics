@@ -25,15 +25,27 @@ namespace RTS.AI
         public int numberOfMeeleUnitsOnOneEnemy;
         public int numberOfTotalUnitsOnOneEnemy;
         public float ArtillaryDeseperoRadius; //when under the distance from enemy to an artillary unit is smaller than this radius, the artillary unit will focus on this enemy
+        public float ArtillaryStillThreshold;// should be around 1.5x the size of the archer's mesh
 
         private Dictionary<Squad, State> states;
-        private Dictionary<Squad, Dictionary<IHittable, int>> numberOfSquaddiesOnEnemy; // given a squad and an enemy, this should return how many squaddies are already engaging that enemy
+        Dictionary<Squad, Dictionary<IHittable, MeeleOrRanged>> numberOfSquaddiesOnEnemy; // given a squad and an enemy, this should return how many squaddies are already engaging that enemy
         private Dictionary<Squad, Dictionary<Unit, IHittable>> LockedEnemies; // com quem cada unidade de cada esquadrão está lutando
             
+        private class MeeleOrRanged //this is to check if the units already attacking a unit are meele or ranged
+        {
+            public int Meele;
+            public int Ranged;
+            public MeeleOrRanged()
+            {
+                Meele = 0;
+                Ranged = 0;
+            }
+        }
+
         public override void Start()
         {
             states = new Dictionary<Squad, State>();
-            numberOfSquaddiesOnEnemy = new Dictionary<Squad, Dictionary<IHittable, int>>();
+            numberOfSquaddiesOnEnemy = new Dictionary<Squad, Dictionary<IHittable, MeeleOrRanged>>();
             LockedEnemies = new Dictionary<Squad, Dictionary<Unit, IHittable>>();
         }
 
@@ -82,16 +94,39 @@ namespace RTS.AI
             return finalEnemiesList;
         }
 
-        private IHittable defineEnemy(Unit.ClassType squaddieType, HashSet<IHittable> enemiesList, Dictionary<IHittable, int>numberOfSiblingsOnEnemy, Unit squaddie)
+        private IHittable defineEnemy(Unit.ClassType squaddieType, HashSet<IHittable> enemiesList, Dictionary<IHittable, MeeleOrRanged> numberOfSiblingsOnEnemy, Unit squaddie)
         {
             IHittable currentTarget = null;
+            //First, let's try to ignore the buildings
+            HashSet<IHittable> buildingsList = new HashSet<IHittable>();
+            if (squaddieType != Unit.ClassType.Siege) // the following is for "human" troops only
+            {
+                foreach (var enemy in enemiesList)
+                {
+                    if (enemy.getType() == RTS.HitType.Building)
+                    {
+                        buildingsList.Add(enemy);
+                    }
+                }
+                if (buildingsList.Count() == enemiesList.Count()) //if all enemies are buildings
+                {
+                    enemiesList = buildingsList;
+                }
+                else
+                {
+                    foreach (var building in buildingsList)
+                    {
+                        enemiesList.Remove(building); //focus on troops first
+                    }
+                }
+            }
             switch (squaddieType)
             {
                 case Unit.ClassType.Infantry:
                     float smallestDistance = float.PositiveInfinity;
-                    foreach (var enemy in enemiesList)
-                    {
-                        if (numberOfSiblingsOnEnemy[enemy] < numberOfMeeleUnitsOnOneEnemy) //só atacar se tiver poucos "irmãos" atacando
+                    foreach (var enemy in enemiesList) 
+                    {   
+                        if (numberOfSiblingsOnEnemy[enemy].Meele < numberOfMeeleUnitsOnOneEnemy) //só atacar se tiver poucos "irmãos" atacando
                         {
                             float currentDistance = Vector3.Distance(enemy.position, squaddie.position);
                             if (currentDistance < smallestDistance)
@@ -106,7 +141,7 @@ namespace RTS.AI
                     float smallestHp = float.PositiveInfinity;
                         foreach (var enemy in enemiesList)
                         {
-                            if (numberOfSiblingsOnEnemy[enemy] < numberOfTotalUnitsOnOneEnemy) //não queremos arqueiros disperdiçando tiros e dando one-shot. 6 é um tanto arbitrário
+                            if (numberOfSiblingsOnEnemy[enemy].Meele + numberOfSiblingsOnEnemy[enemy].Ranged < numberOfTotalUnitsOnOneEnemy) //não queremos arqueiros disperdiçando tiros e dando one-shot. 6 é um tanto arbitrário
                             {
                                 if (enemy.getHp() < smallestHp)
                                 {
@@ -115,6 +150,54 @@ namespace RTS.AI
                                 }
                             }
                         }
+                    break;
+                case Unit.ClassType.Cavalry:
+                    HashSet<IHittable> oldEnemiesList = enemiesList;
+                    HashSet<IHittable> archersList = new HashSet<IHittable>();
+                    foreach (var enemy in enemiesList)
+                    {
+                        if (enemy.getType() == RTS.HitType.ArtillaryUnit)
+                        {
+                            archersList.Add(enemy);
+                        }
+                    }
+                    if (archersList.Count() > 0 ) //if there are archers
+                    {
+                        enemiesList = archersList;
+                    }
+                    float largestDistance = float.NegativeInfinity;
+                    foreach (var enemy in enemiesList)
+                    {
+                        if (numberOfSiblingsOnEnemy[enemy].Meele < numberOfMeeleUnitsOnOneEnemy) //só atacar se tiver poucos "irmãos" atacando
+                        {
+                            float currentDistance = Vector3.Distance(enemy.position, squaddie.position);
+                            if (currentDistance > largestDistance)
+                            {
+                                largestDistance = currentDistance;
+                                currentTarget = enemy;
+                            }
+                        }
+                    }
+                    if (currentTarget== null) //then none of the archers are avaiable (maybe because there are too many meele units around them
+                    {
+                        enemiesList = oldEnemiesList;
+                        foreach (var archer in archersList)
+                        {
+                            enemiesList.Remove(archer);
+                        }
+                        foreach (var enemy in enemiesList)
+                        {
+                            if (numberOfSiblingsOnEnemy[enemy].Meele < numberOfMeeleUnitsOnOneEnemy) //só atacar se tiver poucos "irmãos" atacando
+                            {
+                                float currentDistance = Vector3.Distance(enemy.position, squaddie.position);
+                                if (currentDistance > largestDistance)
+                                {
+                                    largestDistance = currentDistance;
+                                    currentTarget = enemy;
+                                }
+                            }
+                        }
+                    }
                     break;
                 default:
                     currentTarget = null;
@@ -137,7 +220,6 @@ namespace RTS.AI
                         if (currentDistance < smallestDistance)
                         {
                             smallestDistance = currentDistance;
-    
                         }                        
                     }
                     if (smallestDistance > ArtillaryDeseperoRadius) //then we are relatively safe, let's find the most weakened enemy
@@ -183,10 +265,25 @@ namespace RTS.AI
                             closestThreat = enemy;
                         }
                     }
-                    Vector3 result = (closestThreat.position - squaddie.position);
-                    result.Normalize();
-                    //maybe we should multiply result for something here, if it is too small.
-                    return result;
+                    if (smallestDistance < ArtillaryDeseperoRadius) // if there are enemies whoa re too close
+                    {
+                        Vector3 result = (closestThreat.position - squaddie.position);
+                        result.Normalize();
+                        //maybe we should multiply result for something here, if it is too small.
+                        return result;
+                    }
+                    else
+                    {
+                        if (smallestDistance < ArtillaryDeseperoRadius + ArtillaryStillThreshold)
+                        {
+                            //this is to prevent archers from dancing in position.
+                            return squaddie.position;
+                        }
+                        else
+                        {
+                            return target.position;
+                        }
+                    }
                     break;
                 case Unit.ClassType.Infantry:
                 case Unit.ClassType.Cavalry:
@@ -259,14 +356,14 @@ namespace RTS.AI
                         }
                     }
 
-                    Dictionary<IHittable, int> numberOfSiblingsOnEnemy;
+                    Dictionary<IHittable, MeeleOrRanged> numberOfSiblingsOnEnemy;
                     try
                     {
                         numberOfSiblingsOnEnemy = numberOfSquaddiesOnEnemy[squad];
                     }
                     catch (KeyNotFoundException)
                     {
-                        numberOfSiblingsOnEnemy = new Dictionary<IHittable, int>();
+                        numberOfSiblingsOnEnemy = new Dictionary<IHittable, MeeleOrRanged>();
                         numberOfSquaddiesOnEnemy.Add(squad, numberOfSiblingsOnEnemy);
                     }
 
@@ -274,7 +371,7 @@ namespace RTS.AI
                     {
                         if (!numberOfSiblingsOnEnemy.ContainsKey(enemy))
                         {
-                            numberOfSquaddiesOnEnemy[squad].Add(enemy, 0);
+                            numberOfSquaddiesOnEnemy[squad].Add(enemy, new MeeleOrRanged());
                         }
                     }
 
@@ -285,26 +382,38 @@ namespace RTS.AI
                             continue;
                         }
                         IHittable currentTarget=null;
-                        if (localLockedEnemies[squaddie] == null) //then we have to search for an enemy
+                        if (localLockedEnemies[squaddie] == (null) || localLockedEnemies[squaddie].Equals(null)) //then we have to search for an enemy
                         {
                             currentTarget = defineEnemy(squaddie.Type, enemiesList, numberOfSiblingsOnEnemy, squaddie);
+                            if (!(currentTarget == null || currentTarget.Equals(null)))
+                            {
+                                switch (squaddie.Type)
+                                {
+                                    case Unit.ClassType.Infantry:
+                                    case Unit.ClassType.Cavalry:
+                                        numberOfSiblingsOnEnemy[currentTarget].Meele++;
+                                        break;
+                                    case Unit.ClassType.Artillary:
+                                        numberOfSiblingsOnEnemy[currentTarget].Ranged++;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
                         }
                         else
-                        {
-                            if (!localLockedEnemies[squaddie].Equals(null) && localLockedEnemies != null)
-                            {
-                                currentTarget = localLockedEnemies[squaddie];
-                            }
+                        { 
+                            currentTarget = localLockedEnemies[squaddie];
                         }
                         if (currentTarget != null)
                         {
-                            
+                            Debug.Log(currentTarget);
                             //decide if attacking or moving
                             bool SupposedToAttack = AttackOrMove(squaddie, currentTarget, enemiesList, squaddie.Type); //false means we're supposed to move
+                            Debug.Log(SupposedToAttack);
                             if (SupposedToAttack)
                             {
-                                Debug.Log(currentTarget);
-                                squaddie.CurrentAction = UnitAction.AttackAction(currentTarget, squaddie.position);
+                                squaddie.CurrentAction = UnitAction.AttackAction(currentTarget, whereToMove(squaddie, currentTarget, enemiesList, squaddie.Type));
                             }
                             else
                             {
@@ -313,7 +422,28 @@ namespace RTS.AI
                                 Vector3 whereTo = whereToMove(squaddie, currentTarget, enemiesList, squaddie.Type);
                                 squaddie.CurrentAction = UnitAction.MoveAction(whereTo);
                             }
-                            numberOfSiblingsOnEnemy[currentTarget]++; // já foi checado antes se todos os inimigos tinham uma entrada no dicionário
+                            squaddie.OnDestroyed += () =>
+                            {
+                                try
+                                {
+                                    switch (squaddie.Type)
+                                    {
+                                        case Unit.ClassType.Infantry:
+                                        case Unit.ClassType.Cavalry:
+                                            numberOfSiblingsOnEnemy[currentTarget].Meele--;
+                                            break;
+                                        case Unit.ClassType.Artillary:
+                                            numberOfSiblingsOnEnemy[currentTarget].Ranged--;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                                catch (KeyNotFoundException)
+                                {
+                                    //ignore it
+                                }
+                            };
                         }
                         else
                         {
@@ -324,12 +454,21 @@ namespace RTS.AI
                                 squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position);
                             }
                         }
-                        localLockedEnemies[squaddie] = currentTarget;                     
+                        if (currentTarget!=null && !currentTarget.Equals(null))// && currentTarget.getType() != RTS.HitType.Building) //don't lock on buildings, priorizze troops
+                        {
+                            localLockedEnemies[squaddie] = currentTarget;
+                        }
+                        
                     }
                 }
             }
 
            
+        }
+
+        private void Squaddie_OnDestroyed()
+        {
+            throw new NotImplementedException();
         }
     }
 }
