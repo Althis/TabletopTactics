@@ -21,7 +21,11 @@ namespace RTS.AI
                 this.animosity = animosity;
             }
         }
-        public int viewRadius = 10;
+        public float viewRadius;
+        public int numberOfMeeleUnitsOnOneEnemy;
+        public int numberOfTotalUnitsOnOneEnemy;
+        public float ArtillaryDeseperoRadius; //when under the distance from enemy to an artillary unit is smaller than this radius, the artillary unit will focus on this enemy
+
         private Dictionary<Squad, State> states;
         private Dictionary<Squad, Dictionary<IHittable, int>> numberOfSquaddiesOnEnemy; // given a squad and an enemy, this should return how many squaddies are already engaging that enemy
         private Dictionary<Squad, Dictionary<Unit, IHittable>> LockedEnemies; // com quem cada unidade de cada esquadrão está lutando
@@ -72,15 +76,6 @@ namespace RTS.AI
                             j++;
                         }
                     }
-
-
-                    /*
-                    ChildOfInteractiveGameObject[] seenEnemies = hitColliders[i].gameObject.GetComponents<ChildOfInteractiveGameObject>();
-                    if (seenEnemies != null && seenEnemies.Length != 0)
-                    {
-                        Debug.Log(seenEnemies[0].Owner);
-                    }
-                    */
                     i++;
                 }
             }
@@ -96,7 +91,7 @@ namespace RTS.AI
                     float smallestDistance = float.PositiveInfinity;
                     foreach (var enemy in enemiesList)
                     {
-                        if (numberOfSiblingsOnEnemy[enemy] < 3) //só atacar se tiver poucos "irmãos" atacando
+                        if (numberOfSiblingsOnEnemy[enemy] < numberOfMeeleUnitsOnOneEnemy) //só atacar se tiver poucos "irmãos" atacando
                         {
                             float currentDistance = Vector3.Distance(enemy.position, squaddie.position);
                             if (currentDistance < smallestDistance)
@@ -107,12 +102,101 @@ namespace RTS.AI
                         }
                     }
                     break;
+                case Unit.ClassType.Artillary:
+                    float smallestHp = float.PositiveInfinity;
+                        foreach (var enemy in enemiesList)
+                        {
+                            if (numberOfSiblingsOnEnemy[enemy] < numberOfTotalUnitsOnOneEnemy) //não queremos arqueiros disperdiçando tiros e dando one-shot. 6 é um tanto arbitrário
+                            {
+                                if (enemy.getHp() < smallestHp)
+                                {
+                                    smallestDistance = enemy.getHp();
+                                    currentTarget = enemy;
+                                }
+                            }
+                        }
+                    break;
                 default:
                     currentTarget = null;
                     break;
             }
             return currentTarget;
         }
+
+        private bool AttackOrMove (Unit squaddie, IHittable target, HashSet<IHittable> enemiesList, Unit.ClassType type)
+        {
+            //true means attack, false means move
+            switch (type)
+            {
+                case Unit.ClassType.Artillary:
+                    float smallestDistance = float.PositiveInfinity;
+                    //first, check if there are enemies closer than ArtillaryDesesperoRadius
+                    foreach (var enemy in enemiesList)
+                    {
+                        float currentDistance = Vector3.Distance(enemy.position, squaddie.position);
+                        if (currentDistance < smallestDistance)
+                        {
+                            smallestDistance = currentDistance;
+    
+                        }                        
+                    }
+                    if (smallestDistance > ArtillaryDeseperoRadius) //then we are relatively safe, let's find the most weakened enemy
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    break;
+                case Unit.ClassType.Infantry:
+                case Unit.ClassType.Cavalry:
+                    float targetDistance = Vector3.Distance(target.position, squaddie.position);
+                    if (targetDistance < squaddie.Range)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                default:
+                    return false;
+                    break;
+            }
+        }
+
+        private Vector3 whereToMove(Unit squaddie, IHittable target, HashSet<IHittable> enemiesList, Unit.ClassType type)
+        {
+            switch (type)
+            {
+                case Unit.ClassType.Artillary:
+                    float smallestDistance = float.PositiveInfinity;
+                    IHittable closestThreat = null;
+                    //first, check if there are enemies closer than ArtillaryDesesperoRadius
+                    foreach (var enemy in enemiesList)
+                    {
+                        float currentDistance = Vector3.Distance(enemy.position, squaddie.position);
+                        if (currentDistance<smallestDistance)
+                        {
+                            smallestDistance = currentDistance;
+                            closestThreat = enemy;
+                        }
+                    }
+                    Vector3 result = (closestThreat.position - squaddie.position);
+                    result.Normalize();
+                    //maybe we should multiply result for something here, if it is too small.
+                    return result;
+                    break;
+                case Unit.ClassType.Infantry:
+                case Unit.ClassType.Cavalry:
+                    return target.position;
+                default:
+                    return squaddie.position;
+                    break;
+            }
+        }
+
 
         public override void Step(Squad squad)
         {
@@ -200,38 +284,47 @@ namespace RTS.AI
                         {
                             continue;
                         }
-                        if (localLockedEnemies[squaddie]==null) //then we have to search for an enemy
+                        IHittable currentTarget=null;
+                        if (localLockedEnemies[squaddie] == null) //then we have to search for an enemy
                         {
-                            IHittable currentTarget = defineEnemy(squaddie.Type, enemiesList, numberOfSiblingsOnEnemy, squaddie);
-                            if (currentTarget != null)
-                            {
-                                squaddie.CurrentAction = UnitAction.AttackAction(currentTarget, currentTarget.position);
-                                numberOfSiblingsOnEnemy[currentTarget]++; // já foi checado antes se todos os inimigos tinham uma entrada no dicionário
-                            }
-                            else
-                            {
-                                //seguir os outros caras e ficar pronto pra iniciar combate.
-                                //o comportamento a seguir é temporário!
-                                if (squad.TargetInfo != null && squad.TargetInfo.Position != null)
-                                {
-                                    squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position);
-                                }
-                            }
-                            localLockedEnemies[squaddie] = currentTarget;
+                            currentTarget = defineEnemy(squaddie.Type, enemiesList, numberOfSiblingsOnEnemy, squaddie);
                         }
-                        //defineAttackPosition (squaddie.Type, localLockedEnemies[squaddie], squaddie); //pra definir pra onde a unidade se move ao atacar (a formação de ataque)
                         else
                         {
-                            if (!localLockedEnemies[squaddie].Equals(null) && localLockedEnemies!=null)
+                            if (!localLockedEnemies[squaddie].Equals(null) && localLockedEnemies != null)
                             {
-                                squaddie.CurrentAction = UnitAction.AttackAction(localLockedEnemies[squaddie], localLockedEnemies[squaddie].position);
+                                currentTarget = localLockedEnemies[squaddie];
+                            }
+                        }
+                        if (currentTarget != null)
+                        {
+                            
+                            //decide if attacking or moving
+                            bool SupposedToAttack = AttackOrMove(squaddie, currentTarget, enemiesList, squaddie.Type); //false means we're supposed to move
+                            if (SupposedToAttack)
+                            {
+                                Debug.Log(currentTarget);
+                                squaddie.CurrentAction = UnitAction.AttackAction(currentTarget, squaddie.position);
                             }
                             else
                             {
-                                localLockedEnemies[squaddie] = null;
+                                
+                                //decide where we're moving to
+                                Vector3 whereTo = whereToMove(squaddie, currentTarget, enemiesList, squaddie.Type);
+                                squaddie.CurrentAction = UnitAction.MoveAction(whereTo);
                             }
-                           
+                            numberOfSiblingsOnEnemy[currentTarget]++; // já foi checado antes se todos os inimigos tinham uma entrada no dicionário
                         }
+                        else
+                        {
+                            //seguir os outros caras e ficar pronto pra iniciar combate.
+                            //o comportamento a seguir é temporário!
+                            if (squad.TargetInfo != null && squad.TargetInfo.Position != null)
+                            {
+                                squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position);
+                            }
+                        }
+                        localLockedEnemies[squaddie] = currentTarget;                     
                     }
                 }
             }

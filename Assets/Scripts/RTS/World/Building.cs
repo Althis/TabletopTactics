@@ -15,8 +15,17 @@ namespace RTS.World
         }
 
 
-
+        //health and type
         private int health;
+        public float getHp ()
+        {
+            return (float)health;
+        }
+        public HitType type;
+        public HitType getType()
+        {
+            return type;
+        }
 
         public Settings settings;
 
@@ -42,6 +51,7 @@ namespace RTS.World
         void Awake()
         {
             health = settings.MaxHealth;
+            type = RTS.HitType.Building;
         }
         public void OnDestroy()
         {

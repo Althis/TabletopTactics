@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace RTS
 {
+    public enum HitType {InfantryUnit, ArtillaryUnit, CavalryUnit, SiegeUnit, Building};
     public interface ISelectionUnit : IDestructionNotifier
     {
         World.Squads.Squad Squad { get; }
@@ -28,7 +29,8 @@ namespace RTS
     {
 
         void OnHit(int damage);
-
+        HitType getType();
+        float getHp();
         Team Team { get;}
     }
 

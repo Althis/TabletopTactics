@@ -22,6 +22,35 @@ namespace RTS.World
             public float MaxHealth = 100;
         }
 
+        //health and type
+        public float getHp()
+        {
+            return health;
+        }
+        public HitType getType()
+        {
+
+            switch(settings.Type)
+            {
+                case ClassType.Artillary:
+                    return HitType.ArtillaryUnit;
+                    break;
+                case ClassType.Cavalry:
+                    return HitType.CavalryUnit;
+                    break;
+                case ClassType.Infantry:
+                    return HitType.InfantryUnit;
+                    break;
+                case ClassType.Siege:
+                    return HitType.SiegeUnit;
+                    break;
+                default:
+                    throw new System.NotImplementedException("Bolinea não é uma unidade válida no código final Tipo de unidade tem que ser artillary, siege, cavalry ou infantry!!");
+                    break;
+            }
+        }
+
+
         //death
         private bool amDead;
 
@@ -146,7 +175,6 @@ namespace RTS.World
             }
             switch (CurrentAction.Mode)
             {
-                //Nota de Rodrigo pra ele mesmo. Refatorar todo esse trecho!
                 case ActionMode.Attack:
                     var inRange = IsInRange;
                     navMeshAgent.SetDestination(CurrentAction.position ?? default(Vector3));
