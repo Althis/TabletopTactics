@@ -1,8 +1,8 @@
 Layer Selection: Default
 Brush Max Size: 50
-Brush Size: 12.5
+Brush Size: 9.2
 Fill Mode: True
-Fill Rate: 0.138
+Fill Rate: 0.128
 
 Game Object: Assets/Asset_Store_Assets/DAX/Low Poly Forest/Tree V1/Prefabs V1/Tree_0_00.prefab
 Layer: Ground
@@ -490,8 +490,8 @@ Fixed Rotation Y: 0
 Fixed Rotation Z: 0
 Depth: 0
 
-Game Object: Assets/DAX/Low Poly Forest/Tree V1/Prefabs V1(for terrain painting)/Tree_0b_07.prefab
-Layer: Ground
+Game Object: None
+Layer: 
 Toggle: True
 Slider: 1
 Lock Orientation Toggle: True
