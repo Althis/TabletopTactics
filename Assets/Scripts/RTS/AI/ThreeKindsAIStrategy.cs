@@ -13,21 +13,12 @@ namespace RTS.AI
 
     class ThreeKindsAIStrategy : AIStrategy
     {
-        class State
-        {
-            public bool animosity; //if false, it's defensive. If true, it's aggressive
-            public State(bool animosity)
-            {
-                this.animosity = animosity;
-            }
-        }
         public float viewRadius;
         public int numberOfMeeleUnitsOnOneEnemy;
         public int numberOfTotalUnitsOnOneEnemy;
         public float ArtillaryDeseperoRadius; //when under the distance from enemy to an artillary unit is smaller than this radius, the artillary unit will focus on this enemy
         public float ArtillaryStillThreshold;// should be around 1.5x the size of the archer's mesh
 
-        private Dictionary<Squad, State> states;
         Dictionary<Squad, Dictionary<IHittable, MeeleOrRanged>> numberOfSquaddiesOnEnemy; // given a squad and an enemy, this should return how many squaddies are already engaging that enemy
         private Dictionary<Squad, Dictionary<Unit, IHittable>> LockedEnemies; // com quem cada unidade de cada esquadrão está lutando
             
@@ -44,7 +35,6 @@ namespace RTS.AI
 
         public override void Start()
         {
-            states = new Dictionary<Squad, State>();
             numberOfSquaddiesOnEnemy = new Dictionary<Squad, Dictionary<IHittable, MeeleOrRanged>>();
             LockedEnemies = new Dictionary<Squad, Dictionary<Unit, IHittable>>();
         }
@@ -297,16 +287,7 @@ namespace RTS.AI
 
         public override void Step(Squad squad)
         {
-            bool animosity;
-            try
-            {
-                animosity = states[squad].animosity;
-            }
-            catch (KeyNotFoundException)
-            {
-                animosity = true; //this is for testing purposes, usually it should be 'false' here
-                states.Add(squad, new State(animosity));
-            }
+            bool animosity = squad.animosity;
             if (animosity == false && squad.TargetInfo != null && squad.TargetInfo.Position != null)
             {// se nós estamos em modo defensivo (animosity==false) e não há alvo-posição, não há nada a fazer
                 foreach (var squaddie in squad.Units)

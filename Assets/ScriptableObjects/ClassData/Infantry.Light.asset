@@ -16,6 +16,7 @@ MonoBehaviour:
     attackSettings:
       startRange: 1
       stayRange: 1.5
+    Type: 0
     range: 3
     damage: 2
     MaxHealth: 10

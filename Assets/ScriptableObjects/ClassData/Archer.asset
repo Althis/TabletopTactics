@@ -19,4 +19,4 @@ MonoBehaviour:
     Type: 1
     range: 15
     damage: 1
-    MaxHealth: 10
+    MaxHealth: 30

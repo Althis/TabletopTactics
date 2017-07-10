@@ -8,7 +8,11 @@ namespace RTS.World.Squads
 {
     public class Squad
     {
+        public event Action OnDestroyed;
+
         List<SquadElement> units;
+
+        public bool animosity = false;
 
         public Team Team { get; private set; }
 
@@ -36,6 +40,8 @@ namespace RTS.World.Squads
             units.Remove(unit);
             unit.OnUnitDestroyed -= RemoveUnit;
             unit.Squad = null;
+            if (units.Count <= 0)
+                this.Destroy();
         }
 
         public Squad MergeInto(Squad group)
@@ -47,10 +53,10 @@ namespace RTS.World.Squads
                 this.RemoveUnit(unit);
                 group.AddUnit(unit);
             }
-            Manager.Instance.RemoveSquad(this);
+            Destroy();
             return group;
         }
-
+        
         public void Select() {
             foreach (var unit in units)
             {
@@ -64,6 +70,12 @@ namespace RTS.World.Squads
             {
                 unit.OnGroupDeselected();
             }
+        }
+        public void Destroy()
+        {
+            if (OnDestroyed != null)
+                OnDestroyed();
+            Manager.Instance.RemoveSquad(this);
         }
 
         internal void setTarget(TargetInformation info)

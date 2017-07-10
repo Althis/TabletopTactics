@@ -14,7 +14,7 @@ namespace RTS
             public MouseBattleInput.Settings mouseInput;
             public BattleSceneManager.Settings sceneManager;
             public AI.AIStrategy strategy;
-
+            public BannerManager bannerManager;
             public GameObject BaseUnitPrefab;
         }
 
@@ -62,6 +62,12 @@ namespace RTS
                 handler.strategy = settings.strategy;
             });
             squadAIHandler.transform.parent = transform;
+
+            var bannerHandler = InstancingUtils.CreateWithPreemptiveExecution<BannerHandler>((handler) =>
+            {
+                handler.manager = settings.bannerManager;
+            });
+            bannerHandler.transform.parent = transform;
 
         }
     }
