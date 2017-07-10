@@ -257,7 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectCheckMask:
     serializedVersion: 2
-    m_Bits: 3585
+    m_Bits: 3841
   checkDistance: 20
 --- !u!137 &137763361731990360
 SkinnedMeshRenderer:
