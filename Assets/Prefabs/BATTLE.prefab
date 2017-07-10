@@ -179,7 +179,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings:
     StartMorale: 10
-    HealthBarColor: {r: 0.6985294, g: 0.6985294, b: 0.6985294, a: 1}
+    UIColor: {r: 0.5661765, g: 0.5661765, b: 0.5661765, a: 1}
+    defaultUnitMaterial: {fileID: 2100000, guid: fe5ea3b66c677a84b8bb897f445eb6f4,
+      type: 2}
 --- !u!114 &114918870877829752
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -193,7 +195,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings:
     StartMorale: 3
-    HealthBarColor: {r: 0, g: 1, b: 0.54482746, a: 1}
+    UIColor: {r: 0, g: 0.37931037, b: 1, a: 1}
+    defaultUnitMaterial: {fileID: 2100000, guid: f50ed2cc81df73a4895534337aef505a,
+      type: 2}
 --- !u!114 &114927783400319044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -207,4 +211,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings:
     StartMorale: 10
-    HealthBarColor: {r: 1, g: 0.3517243, b: 0, a: 1}
+    UIColor: {r: 1, g: 0.39310342, b: 0, a: 1}
+    defaultUnitMaterial: {fileID: 2100000, guid: 5979614796651c345ab25628e28f9518,
+      type: 2}

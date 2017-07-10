@@ -5,6 +5,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.AI;
 using RTS.Util;
+using RTS.World.Units;
 
 namespace RTS.World.UnitBehavior
 {
@@ -26,18 +27,21 @@ namespace RTS.World.UnitBehavior
         {
             VerifyReferences();
 
-            GameObject model = AssembleModel();
-            VerifyModel(model);
-            Unit unit = AssembleUnit(model);
+            GameObject modelObj = AssembleModel();
+            VerifyModel(modelObj);
+            var model = modelObj.GetComponent<UnitModel>();
+            model.UnitMaterial = team.DefaultUnitMaterial;
+
+            Unit unit = AssembleUnit(modelObj);
 
             this.SelectionIndicator.unit = unit;
 
 
-            foreach (var highlighter in model.GetComponentsInChildren<UnitMeshHighlight>())
+            foreach (var highlighter in modelObj.GetComponentsInChildren<UnitMeshHighlight>())
             {
                 highlighter.unit = unit;
             }
-            healthBar.BarColor = team.HealthBarColor;
+            healthBar.BarColor = team.UIColor;
 
             Destroy(this);
         }
@@ -72,6 +76,7 @@ namespace RTS.World.UnitBehavior
             Debug.Assert(model.GetComponentInChildren<ChildOfInteractiveGameObject>() != null);
             Debug.Assert(model.GetComponentsInChildren<Animator>() != null);
             Debug.Assert(model.GetComponentInChildren<UnitAnimationHandler>() != null);
+            Debug.Assert(model.GetComponentInChildren<UnitModel>() != null);
         }
 
         private void VerifyReferences()

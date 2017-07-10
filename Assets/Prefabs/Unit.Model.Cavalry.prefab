@@ -132,7 +132,6 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1143474803163774
-
 GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -622,6 +621,7 @@ GameObject:
   - component: {fileID: 4829857614082930}
   - component: {fileID: 95767500431802624}
   - component: {fileID: 114753222727341494}
+  - component: {fileID: 114386982085667584}
   m_Layer: 8
   m_Name: Unit.Model.Cavalry
   m_TagString: Untagged
@@ -1805,6 +1805,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
+--- !u!114 &114386982085667584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581262913023602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6e09d991399a5439a257deff4e4f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowMaterialChange: 1
+  excludedRenderers: []
 --- !u!114 &114753222727341494
 MonoBehaviour:
   m_ObjectHideFlags: 1

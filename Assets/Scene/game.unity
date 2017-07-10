@@ -879,12 +879,6 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
---- !u!114 &497104243 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114811850493439358, guid: d14e6537cc592ae438a2ae7c24084011,
-    type: 2}
-  m_PrefabInternal: {fileID: 862051698}
-  m_Script: {fileID: 11500000, guid: f19125f7c2c3b694b88d513769d557fd, type: 3}
 --- !u!1 &516848996 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1294385524207982, guid: 7de0a745c5c4cc1498ee3e4d61422f90,
@@ -946,7 +940,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4940369568816420, guid: 7de0a745c5c4cc1498ee3e4d61422f90, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224780728767896356, guid: 7de0a745c5c4cc1498ee3e4d61422f90,
         type: 2}
@@ -1280,11 +1274,6 @@ Prefab:
       value: 
       objectReference: {fileID: 11400000, guid: df66868f95bec4d43a47d6bfe8670c7e,
         type: 2}
-    - target: {fileID: 114482323215866618, guid: d14e6537cc592ae438a2ae7c24084011,
-        type: 2}
-      propertyPath: healthBar
-      value: 
-      objectReference: {fileID: 497104243}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d14e6537cc592ae438a2ae7c24084011, type: 2}
   m_IsPrefabParent: 0
@@ -2126,7 +2115,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4940369568816420, guid: 7de0a745c5c4cc1498ee3e4d61422f90, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1294385524207982, guid: 7de0a745c5c4cc1498ee3e4d61422f90, type: 2}
       propertyPath: m_Name
