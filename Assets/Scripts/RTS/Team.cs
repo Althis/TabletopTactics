@@ -12,6 +12,7 @@ namespace RTS
         public class Settings
         {
             public int StartMorale;
+            public Color HealthBarColor;
         }
 
 
@@ -46,6 +47,8 @@ namespace RTS
         public float Health { get { return morale; } }
 
         public float MaxHealth { get { return settings.StartMorale; } }
+
+        public Color HealthBarColor { get { return settings.HealthBarColor; } }
 
         void Start()
         {

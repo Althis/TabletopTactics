@@ -15,6 +15,7 @@ namespace RTS.World.UnitBehavior
 
         public SelectionIndicator SelectionIndicator;
         public Transform CanvasHolder;
+        public HealthBar healthBar;
         public NavMeshAgent agentNM;
 
         [Space]
@@ -36,7 +37,7 @@ namespace RTS.World.UnitBehavior
             {
                 highlighter.unit = unit;
             }
-
+            healthBar.BarColor = team.HealthBarColor;
 
             Destroy(this);
         }
@@ -77,6 +78,7 @@ namespace RTS.World.UnitBehavior
         {
             Debug.Assert(SelectionIndicator != null);
             Debug.Assert(CanvasHolder != null);
+            Debug.Assert(healthBar != null);
 
             Debug.Assert(agentNM != null);
 
