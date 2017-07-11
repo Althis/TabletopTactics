@@ -1,0 +1,18 @@
+Feito
+-Fazer o mapa cortar.
+-Fazer o squad acompanhar o banner (mas o banner não pode ser arrastado, a gente ainda tá clicando no banner e clicando onde a gente quer que ele vá).
+-Colocar um collider nos banners.
+
+A fazer:
+LEAP:
+-Pegar o banner e colocar ele em outro canto.
+-Fazer o mapa mover e dar zoom ao movimentar um objeto de cena com o leap. 
+-Trocar a animosidade das tropas dependendo da rotação Y do banner. 
+-Fazer esquadrões se juntarem quando banners colidem.
+-Se der tempo, padronizar a interação de manipulação pra dar pra trocar rapido no dia q for usar o vive.
+TESTE FINAL
+-Jogar uma "partida" na sala em VR pra ter certeza que tudo tá funcionando. 
+-Gravar vídeos/depoimentos de gente usando.
+
+Bugs: 
+Apertar o botão de "agrupar" duas vezes rápido dá erro

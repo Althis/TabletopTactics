@@ -7,12 +7,13 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class BannerManager : ScriptableObject {
     
-    private Dictionary<Squad, Banner> bannerFromSquad;
     public GameObject bannerPrefab;
-    public void Start () {
-        bannerFromSquad = new Dictionary<Squad, Banner>();
-	}
 	
+    public void Start()
+    {
+
+    }
+
     private Vector3 calculateSquadPosition (Squad squad)
     {
         Vector3 result = new Vector3(0,0,0);
@@ -28,36 +29,26 @@ public class BannerManager : ScriptableObject {
 
 	public void Step (Squad squad) {
         Banner currentBanner;
-        try
+        currentBanner = squad.banner;
+
+        if (currentBanner!=null)
         {
-            currentBanner = bannerFromSquad[squad];
             currentBanner.Move(calculateSquadPosition(squad));
         }
-        catch (KeyNotFoundException)
+        else
         {
             currentBanner = GameObject.Instantiate(bannerPrefab).GetComponent<Banner>();
-            bannerFromSquad[squad] = currentBanner;
+            squad.banner = currentBanner;
             currentBanner.setPosition(calculateSquadPosition(squad));
             //make banner get destroyed when squad is destroyed
             var a = currentBanner;
             squad.OnDestroyed += () => DestroyBanner(a, squad);
         }
-        currentBanner.setAnimosity(squad.animosity);
-	}
+        currentBanner.squad = squad;
+    }
 
     void DestroyBanner(Banner ban, Squad squad)
     {
-        if (squad!=null)
-        {
-            try
-            {
-                bannerFromSquad.Remove(squad);
-            }
-            catch (KeyNotFoundException)
-            {
-                //do nothing
-            }
-        }
         if (ban!=null)
         {
             ban.Destroy();

@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23266d233b35ed4483a1ac1379667f1, type: 3}
   m_Name: BannerManager
   m_EditorClassIdentifier: 
-  bannerPrefab: {fileID: 1215190776383578, guid: 8d1f2288a61681446aed21139ed46e38,
+  bannerPrefab: {fileID: 1638393586201504, guid: 8d1f2288a61681446aed21139ed46e38,
     type: 2}

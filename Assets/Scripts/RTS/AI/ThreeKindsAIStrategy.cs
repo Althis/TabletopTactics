@@ -439,10 +439,8 @@ namespace RTS.AI
                         }
                         if (currentTarget != null)
                         {
-                            Debug.Log(currentTarget);
                             //decide if attacking or moving
                             bool SupposedToAttack = AttackOrMove(squaddie, currentTarget, enemiesList, squaddie.Type); //false means we're supposed to move
-                            Debug.Log(SupposedToAttack);
                             if (SupposedToAttack)
                             {
                                 squaddie.CurrentAction = UnitAction.AttackAction(currentTarget, whereToMove(squaddie, currentTarget, enemiesList, squaddie.Type));

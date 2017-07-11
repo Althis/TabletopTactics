@@ -14,6 +14,8 @@ namespace RTS.World.Squads
 
         public bool animosity = true;
 
+        public Banner banner=null;
+
         public Team Team { get; private set; }
 
         public TargetInformation TargetInfo { get; private set; }
@@ -58,6 +60,10 @@ namespace RTS.World.Squads
         }
         
         public void Select() {
+            if (banner != null)
+            {
+                banner.OnSelect();
+            }
             foreach (var unit in units)
             {
                 unit.OnGroupSelected();
@@ -66,6 +72,10 @@ namespace RTS.World.Squads
 
         public void Deselect()
         {
+            if (banner != null)
+            {
+                banner.OnDeselect();
+            }
             foreach (var unit in units)
             {
                 unit.OnGroupDeselected();
@@ -175,6 +185,8 @@ namespace RTS.World.Squads
         internal abstract void OnGroupChanged(Squad oldGroup);
         internal abstract void OnGroupSelected();
         internal abstract void OnGroupDeselected();
+        public abstract event Action OnSelected;
+        public abstract event Action OnDeselected;
     }
     
     public class TargetInformation

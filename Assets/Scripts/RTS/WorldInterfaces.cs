@@ -12,6 +12,8 @@ namespace RTS
         World.Squads.Squad Squad { get; }
         bool Selectable { get; }
         GameObject Owner { get; }
+        event Action OnSelected;
+        event Action OnDeselected;
 
         Team Team { get; }
     }

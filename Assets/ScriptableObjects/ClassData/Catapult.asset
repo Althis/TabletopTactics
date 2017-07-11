@@ -20,3 +20,5 @@ MonoBehaviour:
     range: 5
     damage: 5
     MaxHealth: 10
+    charSpeed: 3.5
+    charAccel: 8
