@@ -290,9 +290,35 @@ namespace RTS.AI
             bool animosity = squad.animosity;
             if (animosity == false && squad.TargetInfo != null && squad.TargetInfo.Position != null)
             {// se nós estamos em modo defensivo (animosity==false) e não há alvo-posição, não há nada a fazer
+
+                int i = 0;
+                float tmp1 = 0f;
+                float tmp2 = 0f;
+                float tmp3 = 0f;
                 foreach (var squaddie in squad.Units)
                 {
-                    squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position);
+
+                    // squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position + new Vector3(tmp, 0, 1.5f));
+                    // i++;
+                    // tmp += 1.5f;
+                     if (squaddie.Type == Unit.ClassType.Infantry)
+                     {
+                         squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position + new Vector3(tmp1, 0, 1.5f));
+                         i++;
+                         tmp1 += 1.5f;
+                     }
+                     if (squaddie.Type == Unit.ClassType.Artillary)
+                     {
+                         squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position + new Vector3(tmp2, 0, 3.0f));
+                         i++;
+                         tmp2 += 1.5f;
+                     }
+                     if (squaddie.Type == Unit.ClassType.Cavalry)
+                     {
+                         squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position + new Vector3(tmp3, 0, 0));
+                         i++;
+                         tmp3 += 1.5f;
+                     }
                 }
             }
 
@@ -303,9 +329,34 @@ namespace RTS.AI
                 {
                     if (squad.TargetInfo != null && squad.TargetInfo.Position != null)
                     {
+                        int i = 0;
+                        float tmp1 = 0f;
+                        float tmp2 = 0f;
+                        float tmp3 = 0f;
                         foreach (var squaddie in squad.Units)
                         {
-                            squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position);
+
+                            // squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position + new Vector3(tmp, 0, 1.5f));
+                            // i++;
+                            // tmp += 1.5f;
+                            if (squaddie.Type == Unit.ClassType.Infantry)
+                            {
+                                squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position + new Vector3(tmp1, 0, 1.5f));
+                                i++;
+                                tmp1 += 1.5f;
+                            }
+                            if (squaddie.Type == Unit.ClassType.Artillary)
+                            {
+                                squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position + new Vector3(tmp2, 0, 3.0f));
+                                i++;
+                                tmp2 += 1.5f;
+                            }
+                            if (squaddie.Type == Unit.ClassType.Cavalry)
+                            {
+                                squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position + new Vector3(tmp3, 0, 0));
+                                i++;
+                                tmp3 += 1.5f;
+                            }
                         }
                     }
                     else
@@ -432,7 +483,7 @@ namespace RTS.AI
                             //o comportamento a seguir é temporário!
                             if (squad.TargetInfo != null && squad.TargetInfo.Position != null)
                             {
-                                squaddie.CurrentAction = UnitAction.MoveAction(squad.TargetInfo.Position);
+                                squaddie.CurrentAction = UnitAction.IdleAction();
                             }
                         }
                         if (currentTarget!=null && !currentTarget.Equals(null))// && currentTarget.getType() != RTS.HitType.Building) //don't lock on buildings, priorizze troops

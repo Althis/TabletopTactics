@@ -20,6 +20,8 @@ namespace RTS.World
             public float range;
             public int damage;
             public float MaxHealth = 100;
+            public float charSpeed;
+            public float charAccel;
         }
 
         //health and type
@@ -139,6 +141,8 @@ namespace RTS.World
             this.team = startTeam;
             Initialized = true;
             navMeshAgent = GetComponent<NavMeshAgent>();
+            navMeshAgent.acceleration = settings.charAccel;
+            navMeshAgent.speed = settings.charSpeed;
             squadHandler = new UnitSquadHandler(this);
             attackHandler = new UnitAttackHandler(this, animationHandler, settings.attackSettings);
         }

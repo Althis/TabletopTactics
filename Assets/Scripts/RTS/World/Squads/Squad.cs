@@ -12,7 +12,7 @@ namespace RTS.World.Squads
 
         List<SquadElement> units;
 
-        public bool animosity = false;
+        public bool animosity = true;
 
         public Team Team { get; private set; }
 
