@@ -6,7 +6,7 @@ public class MoveCam : MonoBehaviour {
 
 	Transform trans;
 	float rotationSpeed = 5.0f;
-	float translationSpeed = 20.0f;
+	public float translationSpeed = 20.0f;
 	int screeWidth;
 	int screenHeight;
 	int boundary = 75;
@@ -26,11 +26,11 @@ public class MoveCam : MonoBehaviour {
 		}
 
 		if (Input.GetKey(KeyCode.UpArrow) /*|| (Input.mousePosition.y > screenHeight - boundary)*/){
-			trans.Translate (new Vector3 (0, 0, 1) * Time.deltaTime * translationSpeed);
+			//trans.Translate (new Vector3 (0, 0, 1) * Time.deltaTime * translationSpeed);
 		}
 
 		if (Input.GetKey(KeyCode.DownArrow) /*|| (Input.mousePosition.y < 0 + boundary)*/){
-			trans.Translate (new Vector3 (0, 0, -1) * Time.deltaTime * translationSpeed);
+			//trans.Translate (new Vector3 (0, 0, -1) * Time.deltaTime * translationSpeed);
 		}
 
 		if (Input.GetKey(KeyCode.LeftArrow) /*|| (Input.mousePosition.x < 0 + boundary)*/){
