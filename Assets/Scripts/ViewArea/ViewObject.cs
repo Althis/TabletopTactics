@@ -16,6 +16,9 @@ public class ViewObject : MonoBehaviour {
         {
             renderer.enabled = false;
         }
+		foreach (var canvas in GetComponentsInChildren<Canvas>()) {
+			canvas.enabled = false;
+		}
     }
 
     public void OnEnterView()
@@ -23,6 +26,9 @@ public class ViewObject : MonoBehaviour {
         foreach (var renderer in GetComponentsInChildren<Renderer>())
         {
             renderer.enabled = true;
-        }
+		}
+		foreach (var canvas in GetComponentsInChildren<Canvas>()) {
+			canvas.enabled = true;
+		}
     }
 }
