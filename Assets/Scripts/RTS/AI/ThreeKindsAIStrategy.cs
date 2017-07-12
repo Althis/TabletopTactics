@@ -304,7 +304,7 @@ namespace RTS.AI
             }
             catch (KeyNotFoundException)
             {
-                animosity = true; //this is for testing purposes, usually it should be 'false' here
+                animosity = false; //this is for testing purposes, usually it should be 'false' here
                 states.Add(squad, new State(animosity));
             }
             if (animosity == false && squad.TargetInfo != null && squad.TargetInfo.Position != null)
