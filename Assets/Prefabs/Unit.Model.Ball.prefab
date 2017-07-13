@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 4124980587372788}
   - component: {fileID: 95403855902273088}
   - component: {fileID: 114778187739232426}
+  - component: {fileID: 114008840075943908}
   m_Layer: 8
   m_Name: Unit.Model.Ball
   m_TagString: Untagged
@@ -151,20 +152,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-<<<<<<< HEAD
-=======
---- !u!114 &114600595426951404
+--- !u!114 &114008840075943908
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1605131020498806}
+  m_GameObject: {fileID: 1634810304406520}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7153c68cd60186a40b42679a3b2c6a20, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a6e09d991399a5439a257deff4e4f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
->>>>>>> origin/MapaCortado
+  allowMaterialChange: 1
+  excludedRenderers: []
 --- !u!114 &114731094621674206
 MonoBehaviour:
   m_ObjectHideFlags: 1

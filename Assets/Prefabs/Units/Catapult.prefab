@@ -738,6 +738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultOwner: {fileID: 0}
+  slider: {fileID: 0}
 --- !u!114 &114062574062730732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -838,24 +839,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1898761668756678}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4370184b129e47740a40d2cd3d1aaf85, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a6e09d991399a5439a257deff4e4f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myType: 3
-  curPos: {x: 0, y: 0, z: 0}
-  oldPos: {x: 0, y: 0, z: 0}
-  velocity: {x: 0, y: 0, z: 0}
-  speed: 0
-  settings:
-    range: 7
-    attackRangeTolerance: 1
-    damage: 5
-    idleMaterial: {fileID: 0}
-    selectedMaterial: {fileID: 0}
-    health: 100
-  selectionIndicator: {fileID: 4545443251795062}
-  animationHandler: {fileID: 114129886859407776}
-  unitTransform: {fileID: 4738617253419370}
+  allowMaterialChange: 1
+  excludedRenderers: []
 --- !u!114 &114483689404212188
 MonoBehaviour:
   m_ObjectHideFlags: 1

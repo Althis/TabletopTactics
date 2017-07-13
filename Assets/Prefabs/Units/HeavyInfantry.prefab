@@ -1111,6 +1111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultOwner: {fileID: 0}
+  slider: {fileID: 0}
 --- !u!114 &114397039362375394
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1131,19 +1132,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1106825390914884}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4370184b129e47740a40d2cd3d1aaf85, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a6e09d991399a5439a257deff4e4f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings:
-    range: 1
-    attackRangeTolerance: 1
-    damage: 3
-    idleMaterial: {fileID: 0}
-    selectedMaterial: {fileID: 0}
-    health: 100
-  selectionIndicator: {fileID: 4212028860687084}
-  animationHandler: {fileID: 114820961396820236}
-  unitTransform: {fileID: 4916988971451492}
+  allowMaterialChange: 1
+  excludedRenderers: []
 --- !u!114 &114499775009622426
 MonoBehaviour:
   m_ObjectHideFlags: 1

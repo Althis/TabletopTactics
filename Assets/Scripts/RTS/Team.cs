@@ -12,6 +12,8 @@ namespace RTS
         public class Settings
         {
             public int StartMorale;
+            public Color UIColor;
+            public Material defaultUnitMaterial;
         }
 
 
@@ -46,6 +48,10 @@ namespace RTS
         public float Health { get { return morale; } }
 
         public float MaxHealth { get { return settings.StartMorale; } }
+
+        public Color UIColor { get { return settings.UIColor; } }
+
+        public Material DefaultUnitMaterial { get { return settings.defaultUnitMaterial; } }
 
         void Start()
         {

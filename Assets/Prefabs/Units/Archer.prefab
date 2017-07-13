@@ -1081,24 +1081,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1070686342742772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4370184b129e47740a40d2cd3d1aaf85, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a6e09d991399a5439a257deff4e4f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myType: 1
-  curPos: {x: 0, y: 0, z: 0}
-  oldPos: {x: 0, y: 0, z: 0}
-  velocity: {x: 0, y: 0, z: 0}
-  speed: 0
-  settings:
-    range: 5
-    attackRangeTolerance: 1
-    damage: 1
-    idleMaterial: {fileID: 0}
-    selectedMaterial: {fileID: 0}
-    health: 100
-  selectionIndicator: {fileID: 4422527757077368}
-  animationHandler: {fileID: 114008847637117056}
-  unitTransform: {fileID: 4402748540368356}
+  allowMaterialChange: 1
+  excludedRenderers: []
 --- !u!114 &114028629490152318
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1276,6 +1263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultOwner: {fileID: 0}
+  slider: {fileID: 0}
 --- !u!114 &114992103742932576
 MonoBehaviour:
   m_ObjectHideFlags: 1
