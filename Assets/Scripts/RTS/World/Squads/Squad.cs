@@ -12,7 +12,7 @@ namespace RTS.World.Squads
 
         List<SquadElement> units;
 
-        public bool animosity = true;
+        public bool animosity =false;
 
 		public bool wantsToMerge=false;
 

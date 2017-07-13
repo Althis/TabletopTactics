@@ -12,7 +12,6 @@ public class SquadMergeHandler : MonoBehaviour {
 	}
 
 	void Update () {
-		Debug.Log ("yo");
 		mergeFirst = null;
 		var j = 0;
 		var i = 0;
@@ -27,7 +26,6 @@ public class SquadMergeHandler : MonoBehaviour {
 					j++;
 				}
 			}
-			Debug.Log (toMerge);
 			if (j > 0) {
 				mergeFirst = toMerge [0];
 				if (mergeFirst != null) {

@@ -15,6 +15,9 @@ public class Banner : MonoBehaviour, ISelectionUnit
 	public LayerMask groundLayers;
 	public float checkDistance = 20;
 	private VRGrabbable grabbable;
+	private bool isDownwards=false;
+
+	private AnimosityIndicator[] indicators;
 
 	Vector3 dampVel;
 
@@ -51,20 +54,42 @@ public class Banner : MonoBehaviour, ISelectionUnit
         selectionIndicator.unit = this;
 		grabbable = GetComponent<VRGrabbable>();
 		grabbable.onRelease.AddListener (onGraspEnd);
+		indicators = GetComponentsInChildren<AnimosityIndicator> ();
     }
 
 	void Start () {
 		Debug.Assert (squad != null);
 		setPosition (calculateSquadPosition(squad));
+		updateAnimosityAppearance ();
+
     }
 
 	void Update(){
 		if (grabbable.Grabbed == false) {
 			Move (calculateSquadPosition (squad));
 		}
+		if (Vector3.Dot (transform.up, Vector3.up) < 0) {
+			if (isDownwards == false) {
+				squad.animosity = !squad.animosity;
+				updateAnimosityAppearance ();
+			}
+			isDownwards = true;
+		} else {
+			isDownwards = false;
+		}
+
 	}
 
-
+	void updateAnimosityAppearance (){
+		foreach (var indicator in indicators) {
+			Debug.Log (indicator);
+			if (indicator.animosity == squad.animosity) {
+				indicator.gameObject.SetActive (true);
+			} else {
+				indicator.gameObject.SetActive (false);
+			}
+		}
+	}
 
 	public void setPosition(Vector3 newPosition)
 	{
@@ -84,8 +109,6 @@ public class Banner : MonoBehaviour, ISelectionUnit
     {
         GameObject.Destroy(gameObject);
     }
-
-
 
 
 
