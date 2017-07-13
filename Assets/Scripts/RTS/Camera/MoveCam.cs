@@ -5,8 +5,9 @@ using UnityEngine;
 public class MoveCam : MonoBehaviour {
 
 	Transform trans;
-	public float rotationSpeed = 5.0f;
-	public float translationSpeed = 20.0f;
+	float rotationSpeed = 5.0f;
+	public float translationSpeed = 1.0f;
+	public float zoomSpeed = 0.5f;
 	int screeWidth;
 	int screenHeight;
 	int boundary = 75;
@@ -40,7 +41,6 @@ public class MoveCam : MonoBehaviour {
 		if (Input.GetKey(KeyCode.D) /*|| (Input.mousePosition.x > screeWidth - boundary)*/){
 			trans.Translate (new Vector3 (1, 0, 0) * Time.deltaTime * translationSpeed);
 		}
-
         if (Input.GetKey(KeyCode.T) /*|| (Input.mousePosition.x < 0 + boundary)*/)
         {
             trans.Translate(new Vector3(0, 1, 0) * Time.deltaTime * translationSpeed);

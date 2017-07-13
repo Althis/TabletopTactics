@@ -78,6 +78,7 @@ namespace RTS.World.Squads
             {
                 banner.OnDeselect();
             }
+
             foreach (var unit in units)
             {
                 unit.OnGroupDeselected();

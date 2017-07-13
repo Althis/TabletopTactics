@@ -11,7 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae6e9b51cc4eac4a8b1deab57898111, type: 3}
   m_Name: Bolinea
   m_EditorClassIdentifier: 
+  animationController: {fileID: 9100000, guid: c2a43638c745aa84983b4f875df3078c, type: 2}
   model: {fileID: 1634810304406520, guid: 5b9c4cc6ca7769f438efe54ddae8e1b4, type: 2}
+  modelObjectName: Sphere
   settings:
     attackSettings:
       startRange: 1
@@ -22,3 +24,4 @@ MonoBehaviour:
     MaxHealth: 10
     charSpeed: 3.5
     charAccel: 8
+    

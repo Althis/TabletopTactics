@@ -21,9 +21,9 @@ namespace RTS.World.UnitBehavior
         }
         public override Unit Unit { get { return unit; } }
         public override Team Team{ get { return unit.Team; } }
-
         public override event Action OnSelected;
         public override event Action OnDeselected;
+
 
         public UnitSquadHandler(Unit unit)
         {

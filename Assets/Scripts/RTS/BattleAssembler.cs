@@ -8,6 +8,7 @@ using UnityEngine;
 namespace RTS
 {
 	[RequireComponent(typeof(SquadMergeHandler))]
+
     public class BattleAssembler : MonoBehaviour
     {
         [System.Serializable]
@@ -64,7 +65,6 @@ namespace RTS
                 handler.strategy = settings.strategy;
             });
             squadAIHandler.transform.parent = transform;
-
             var bannerHandler = InstancingUtils.CreateWithPreemptiveExecution<BannerHandler>((handler) =>
             {
                 handler.manager = settings.bannerManager;

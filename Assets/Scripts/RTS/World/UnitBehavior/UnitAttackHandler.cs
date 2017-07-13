@@ -64,6 +64,7 @@ namespace RTS.World.UnitBehavior
         }
         void ExecuteAttack()
         {
+
 			animationHandler.OnHitFrame -= ExecuteAttack;
             target.OnHit((int)unit.AttackDamage);
             StopAttacking();
