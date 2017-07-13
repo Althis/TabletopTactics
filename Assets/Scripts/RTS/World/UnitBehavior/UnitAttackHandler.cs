@@ -6,9 +6,12 @@ using UnityEngine;
 
 namespace RTS.World.UnitBehavior
 {
+	
     public class UnitAttackHandler
     {
         enum State { Free, Attacking }
+		AudioSource audioSource;
+		UnitSoundHandler soundHandler;
 
         [Serializable]
         public class Settings
@@ -27,11 +30,12 @@ namespace RTS.World.UnitBehavior
 
         public bool IsAttacking { get { return state == State.Attacking; } }
 
-        public UnitAttackHandler(Unit unit, UnitAnimationHandler animationHandler, Settings settings)
+		public UnitAttackHandler(Unit unit, UnitAnimationHandler animationHandler, Settings settings, UnitSoundHandler soundHandler)
         {
             this.unit = unit;
             this.animationHandler = animationHandler;
             this.settings = settings;
+			this.soundHandler = soundHandler;
         }   
 
 
@@ -60,7 +64,7 @@ namespace RTS.World.UnitBehavior
         }
         void ExecuteAttack()
         {
-            animationHandler.OnHitFrame -= ExecuteAttack;
+			animationHandler.OnHitFrame -= ExecuteAttack;
             target.OnHit((int)unit.AttackDamage);
             StopAttacking();
         }

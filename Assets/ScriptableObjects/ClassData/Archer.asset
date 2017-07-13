@@ -17,7 +17,7 @@ MonoBehaviour:
       startRange: 1
       stayRange: 1.5
     Type: 1
-    range: 15
+    range: 10
     damage: 1
     MaxHealth: 30
     charSpeed: 3.5

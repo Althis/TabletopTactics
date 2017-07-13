@@ -82,7 +82,6 @@ public class Banner : MonoBehaviour, ISelectionUnit
 
 	void updateAnimosityAppearance (){
 		foreach (var indicator in indicators) {
-			Debug.Log (indicator);
 			if (indicator.animosity == squad.animosity) {
 				indicator.gameObject.SetActive (true);
 			} else {
@@ -165,16 +164,18 @@ public class Banner : MonoBehaviour, ISelectionUnit
 	{
 		Vector3 result = new Vector3(0,0,0);
 		var i = 0;
-		foreach (var squaddie in squad.Units)
-		{
-			if (squaddie==null || squaddie.Equals(null))
-			{
-				continue;
+		foreach (var squaddie in squad.Units) {
+			if (squaddie != null && !squaddie.Equals (null) && !float.IsNaN(squaddie.position.x) &&!float.IsNaN(squaddie.position.y)&& !float.IsNaN(squaddie.position.z)) {
+				i++;
+				result += squaddie.position;
 			}
-			i++;
-			result += squaddie.position;
 		}
-		result /= i;
+		if (i>0){
+			result /= i;
+		}
+		else{
+			result= new Vector3 (0,0,0);
+		}
 		return result;
 	}
 }

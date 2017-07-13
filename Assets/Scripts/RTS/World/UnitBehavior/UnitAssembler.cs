@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using RTS.Util;
 
+
 namespace RTS.World.UnitBehavior
 {
     public class UnitAssembler: MonoBehaviour
@@ -24,7 +25,6 @@ namespace RTS.World.UnitBehavior
         public void Awake()
         {
             VerifyReferences();
-
             GameObject model = AssembleModel();
             VerifyModel(model);
             Unit unit = AssembleUnit(model);
@@ -49,6 +49,7 @@ namespace RTS.World.UnitBehavior
                 u.StartTeam = team;
                 u.animationHandler = model.GetComponentInChildren<UnitAnimationHandler>();
             });
+			unit.animationHandler.OnHitFrame+=()=>{UnitSoundHandler.singleton.playHitAudio(unit);};
             return unit;
         }
 

@@ -24,6 +24,8 @@ namespace RTS.World
             public float charAccel;
         }
 
+		public UnitSoundHandler soundHandler;
+
         //health and type
         public float getHp()
         {
@@ -144,7 +146,7 @@ namespace RTS.World
             navMeshAgent.acceleration = settings.charAccel;
             navMeshAgent.speed = settings.charSpeed;
             squadHandler = new UnitSquadHandler(this);
-            attackHandler = new UnitAttackHandler(this, animationHandler, settings.attackSettings);
+			attackHandler = new UnitAttackHandler(this, animationHandler, settings.attackSettings, soundHandler);
         }
         void Start()
         {

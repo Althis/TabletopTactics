@@ -20,25 +20,13 @@ public class BannerManager : ScriptableObject {
 		Banner currentBanner = GameObject.Instantiate(bannerPrefab).GetComponent<Banner>();
         squad.banner = currentBanner;
 		currentBanner.squad = squad;
-//        currentBanner.interactionObject.OnGraspBegin +=()=> { onGraspBegin(currentBanner); };
-//        currentBanner.interactionObject.OnGraspEnd+= () => { onGraspEnd(currentBanner); };
-        //make banner get destroyed when squad is destroyed
-        squad.OnDestroyed += () => { DestroyBanner(currentBanner, squad); };
+		squad.OnDestroyed += () => { currentBanner.Destroy();};
 	}
 
 	public void Step (Squad squad) {
 		if (squad.banner == null || squad.banner.Equals(null)) {
 			createBanner(squad);
 		}
-    }
-
-    void DestroyBanner(Banner ban, Squad squad)
-    {
-        if (ban!=null)
-        {
-            ban.Destroy();
-        }
-
     }
 
 }
