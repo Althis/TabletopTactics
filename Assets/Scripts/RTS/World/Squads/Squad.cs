@@ -14,6 +14,8 @@ namespace RTS.World.Squads
 
         public bool animosity = true;
 
+		public bool wantsToMerge=false;
+
         public Banner banner=null;
 
         public Team Team { get; private set; }

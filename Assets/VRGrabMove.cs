@@ -8,12 +8,16 @@ public class VRGrabMove : MonoBehaviour {
 
 	VRGrabbable grabHandler;
 
+	public bool rotate = true;
+
 	void Start()
 	{
 		grabHandler = GetComponent<VRGrabbable> ();
 	}
 	void Update () {
-		if (grabHandler.Grabbed)
+		if (grabHandler.Grabbed) {
 			transform.position = grabHandler.GrabRelativePos;
+			transform.rotation = grabHandler.GrabRelativeRot;
+		}
 	}
 }

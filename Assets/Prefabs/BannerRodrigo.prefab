@@ -55,6 +55,8 @@ GameObject:
   - component: {fileID: 114347356640597576}
   - component: {fileID: 65472886729415092}
   - component: {fileID: 54532153789566124}
+  - component: {fileID: 114254049834140114}
+  - component: {fileID: 114736912803794070}
   m_Layer: 12
   m_Name: BannerRodrigo
   m_TagString: Untagged
@@ -328,7 +330,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8, y: 12, z: 8}
+  m_Size: {x: 1, y: 4, z: 1}
   m_Center: {x: 0, y: 7, z: 0}
 --- !u!111 &111774393798032436
 Animation:
@@ -345,6 +347,27 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
+--- !u!114 &114254049834140114
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1638393586201504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8d8c90c536ca345a22f2558fffee60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onGrab:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onRelease:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114347356640597576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -359,12 +382,23 @@ MonoBehaviour:
   objectCheckMask:
     serializedVersion: 2
     m_Bits: 3585
-  pleaseOnlyPutGroundHere:
+  groundLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   checkDistance: 20
-  grasped: 0
   selectionIndicator: {fileID: 114927286696130970}
+--- !u!114 &114736912803794070
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1638393586201504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aaa72786d872964288d605f6b68f400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotate: 1
 --- !u!114 &114833979107692612
 MonoBehaviour:
   m_ObjectHideFlags: 1

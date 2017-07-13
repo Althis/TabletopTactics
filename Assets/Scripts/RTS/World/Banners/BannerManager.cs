@@ -14,27 +14,12 @@ public class BannerManager : ScriptableObject {
 
     }
 
-    private Vector3 calculateSquadPosition (Squad squad)
-    {
-        Vector3 result = new Vector3(0,0,0);
-        var i = 0;
-        foreach (var squaddie in squad.Units)
-        {
-            if (squaddie==null || squaddie.Equals(null))
-            {
-                continue;
-            }
-            i++;
-            result += squaddie.position;
-        }
-        result /= i;
-        return result;
-    }
+   
 
 	public void createBanner(Squad squad){
 		Banner currentBanner = GameObject.Instantiate(bannerPrefab).GetComponent<Banner>();
         squad.banner = currentBanner;
-        currentBanner.setPosition(calculateSquadPosition(squad));
+		currentBanner.squad = squad;
 //        currentBanner.interactionObject.OnGraspBegin +=()=> { onGraspBegin(currentBanner); };
 //        currentBanner.interactionObject.OnGraspEnd+= () => { onGraspEnd(currentBanner); };
         //make banner get destroyed when squad is destroyed

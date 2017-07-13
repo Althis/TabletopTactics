@@ -14,6 +14,14 @@ namespace RTS.Inputs.SteamVR
 			}
 		}
 
+		public Quaternion GrabRelativeRot
+		{
+			get
+			{
+				return Grabbed ? grabTransform.TransformedRot : transform.rotation;
+			}
+		}
+
 
 		public UnityEvent onGrab;
 		public UnityEvent onRelease;

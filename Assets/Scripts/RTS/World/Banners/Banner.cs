@@ -5,14 +5,16 @@ using UnityEngine;
 using UnityEngine.AI;
 using RTS.World.Squads;
 using System;
+using RTS.Inputs.SteamVR;
 
+[RequireComponent(typeof(VRGrabbable))]
 public class Banner : MonoBehaviour, ISelectionUnit
 {
     public Squad squad;
 	public LayerMask objectCheckMask;
-    public LayerMask pleaseOnlyPutGroundHere;
+	public LayerMask groundLayers;
 	public float checkDistance = 20;
-    public bool grasped = false;
+	private VRGrabbable grabbable;
 
 	Vector3 dampVel;
 
@@ -28,6 +30,8 @@ public class Banner : MonoBehaviour, ISelectionUnit
     public event Action deselectionAction;
     public event Action OnDeselected { add { deselectionAction += value; } remove { deselectionAction -= value; } }
     public SelectionIndicator selectionIndicator;
+
+
     public void OnSelect()
     {
         selectionAction();
@@ -37,89 +41,117 @@ public class Banner : MonoBehaviour, ISelectionUnit
         deselectionAction();
     }
 
-    public void setPosition(Vector3 newPosition)
-    {
-        this.transform.position=GetRealTarget(newPosition);
-        setUpwards();
-    }
+
+
+
+
 
     void Awake ()
     {
         selectionIndicator.unit = this;
+		grabbable = GetComponent<VRGrabbable>();
+		grabbable.onRelease.AddListener (onGraspEnd);
     }
 
-	void SetController (SteamVR_TrackedController newController){
+	void Start () {
+		Debug.Assert (squad != null);
+		setPosition (calculateSquadPosition(squad));
+    }
+
+	void Update(){
+		if (grabbable.Grabbed == false) {
+			Move (calculateSquadPosition (squad));
+		}
 	}
 
-    void Start () {
-    }
+
+
+	public void setPosition(Vector3 newPosition)
+	{
+		this.transform.position=FindBannerTarget(newPosition);
+		setUpwards();
+	}
 
     public void Move (Vector3 position)
     {
-        var target = GetRealTarget(position);    
+        var target = FindBannerTarget(position);    
 		transform.position = Vector3.SmoothDamp (transform.position, target, ref dampVel, .1f);
     }
 
-    public void setUpwards()
-    {
-        this.transform.rotation = Quaternion.FromToRotation(new Vector3(0, 0, 0), new Vector3(0, 1, 0));
-    }
 
-	Vector3 GetRealTarget(Vector3 position)
-    {       
-        Vector3 startPos = position + Vector3.up * checkDistance;
-
-        RaycastHit rayResult;
-
-		//Physics.Raycast(startPos, Vector3.down, objectCheckMask.value, out rayResult);
-		Physics.Raycast (new Ray(startPos, Vector3.down), out rayResult, checkDistance * 2, objectCheckMask.value);
-        if (rayResult.collider == null)
-            return position;
-        else
-            return rayResult.point;
-    }
-
-    public Vector3 getSquadTargetFromBanner()
-    {
-        Vector3 startPos = transform.position + Vector3.up * checkDistance;
-
-        RaycastHit rayResult;
-
-        Physics.Raycast(new Ray(startPos, Vector3.down), out rayResult, checkDistance * 2, pleaseOnlyPutGroundHere.value);
-        if (rayResult.collider != null)
-            return rayResult.point;
-        else return new Vector3(float.NaN, float.NaN,float.NaN); // quem chamou tem que verificar
-    }
-
-	void onGraspBegin(Banner banner)
-	{
-		if (banner != null && !banner.Equals(null))
-		{
-			banner.grasped = true;
-		}
-	}
-	void onGraspEnd(Banner banner)
-	{
-		if (banner != null && !banner.Equals(null))
-		{
-			banner.grasped = false;
-			banner.setUpwards();
-
-			Vector3 squadTarget = banner.getSquadTargetFromBanner();
-			Debug.Log(squadTarget);
-			if (!float.IsNaN(squadTarget.x) && !float.IsNaN(squadTarget.z) && !float.IsNaN(squadTarget.y))
-			{
-				banner.squad.setTarget(new TargetInformation(null, squadTarget));
-			}
-			else
-			{
-				//send feedback to user saying that some crazy shit is going on
-			}
-		}
-	}
 
     public void Destroy()
     {
         GameObject.Destroy(gameObject);
     }
+
+
+
+
+
+
+	void setUpwards()
+	{
+		this.transform.rotation = Quaternion.FromToRotation(new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+	}
+
+
+	void onGraspEnd()
+	{
+		setUpwards();
+		squad.wantsToMerge = true;
+		Vector3 squadTarget =FindSquadTarget();
+		if (!float.IsNaN(squadTarget.x) && !float.IsNaN(squadTarget.z) && !float.IsNaN(squadTarget.y))
+		{
+			squad.setTarget(new TargetInformation(null, squadTarget));
+		}
+		else
+		{
+			//send feedback to user saying that some crazy shit is going on
+		}
+
+	}
+
+	Vector3 FindSquadTarget()
+	{
+		Vector3 startPos = transform.position + Vector3.up * checkDistance;
+
+		RaycastHit rayResult;
+
+		Physics.Raycast(new Ray(startPos, Vector3.down), out rayResult, checkDistance * 2, groundLayers.value);
+		if (rayResult.collider != null)
+			return rayResult.point;
+		else return new Vector3(float.NaN, float.NaN,float.NaN); // quem chamou tem que verificar
+	}
+
+	Vector3 FindBannerTarget(Vector3 position)
+	{       
+		Vector3 startPos = position + Vector3.up * checkDistance;
+
+		RaycastHit rayResult;
+
+		//Physics.Raycast(startPos, Vector3.down, objectCheckMask.value, out rayResult);
+		Physics.Raycast (new Ray(startPos, Vector3.down), out rayResult, checkDistance * 2, objectCheckMask.value);
+		if (rayResult.collider == null)
+			return position;
+		else
+			return rayResult.point;
+	}
+
+	Vector3 calculateSquadPosition (Squad squad)
+	{
+		Vector3 result = new Vector3(0,0,0);
+		var i = 0;
+		foreach (var squaddie in squad.Units)
+		{
+			if (squaddie==null || squaddie.Equals(null))
+			{
+				continue;
+			}
+			i++;
+			result += squaddie.position;
+		}
+		result /= i;
+		return result;
+	}
 }

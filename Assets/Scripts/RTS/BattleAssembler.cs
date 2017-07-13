@@ -4,8 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace RTS
 {
+	[RequireComponent(typeof(SquadMergeHandler))]
     public class BattleAssembler : MonoBehaviour
     {
         [System.Serializable]
@@ -14,7 +16,7 @@ namespace RTS
             public MouseBattleInput.Settings mouseInput;
             public BattleSceneManager.Settings sceneManager;
             public AI.AIStrategy strategy;
-            public BannerManager bannerManager;
+			public BannerManager bannerManager;
             public GameObject BaseUnitPrefab;
         }
 
@@ -68,7 +70,6 @@ namespace RTS
                 handler.manager = settings.bannerManager;
             });
             bannerHandler.transform.parent = transform;
-
         }
     }
 }

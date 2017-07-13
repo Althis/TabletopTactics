@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RTS.Util;
 using System.Linq;
+using UnityEngine.Events;
 
 namespace RTS.Inputs.SteamVR
 {
@@ -15,6 +16,7 @@ namespace RTS.Inputs.SteamVR
 		SteamVR_TrackedController controller;
 
 		List<VRGrabbable> grabbed;
+
 
 		void Awake()
 		{

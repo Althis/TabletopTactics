@@ -15,13 +15,22 @@ namespace RTS.Util
 			this.parent = parent;
 			this.child = child;
 			localPos = parent.InverseTransformPoint (child.position);
-			localRot = Quaternion.FromToRotation (parent.forward, child.forward);
+//			localRot = Quaternion.FromToRotation (parent.forward, child.forward);
+			localRot = Quaternion.Inverse(parent.rotation) * child.rotation;
 		}
 
 		public Vector3 TransformedPos
 		{
 			get {
 				return parent.TransformPoint (localPos);
+			}
+		}
+
+		public Quaternion TransformedRot
+		{
+			get
+			{
+				return parent.rotation * localRot;
 			}
 		}
 	}
