@@ -18,10 +18,12 @@ namespace RTS.AI
         public int numberOfTotalUnitsOnOneEnemy;
         public float ArtillaryDeseperoRadius; //when under the distance from enemy to an artillary unit is smaller than this radius, the artillary unit will focus on this enemy
         public float ArtillaryStillThreshold;// should be around 1.5x the size of the archer's mesh
+        public float artillaryFleeThreshold;
 
         Dictionary<Squad, Dictionary<IHittable, MeeleOrRanged>> numberOfSquaddiesOnEnemy; // given a squad and an enemy, this should return how many squaddies are already engaging that enemy
         private Dictionary<Squad, Dictionary<Unit, IHittable>> LockedEnemies; // com quem cada unidade de cada esquadrão está lutando
-            
+        Dictionary<Unit, int> ArcherFleeState;
+
         private class MeeleOrRanged //this is to check if the units already attacking a unit are meele or ranged
         {
             public int Meele;
@@ -37,6 +39,8 @@ namespace RTS.AI
         {
             numberOfSquaddiesOnEnemy = new Dictionary<Squad, Dictionary<IHittable, MeeleOrRanged>>();
             LockedEnemies = new Dictionary<Squad, Dictionary<Unit, IHittable>>();
+            ArcherFleeState = new Dictionary<Unit, int>();
+
         }
 
         private bool isEnemy (Unit unit, IHittable supposedEnemy)
@@ -196,12 +200,23 @@ namespace RTS.AI
             return currentTarget;
         }
 
+        
         private bool AttackOrMove (Unit squaddie, IHittable target, HashSet<IHittable> enemiesList, Unit.ClassType type)
         {
+
             //true means attack, false means move
             switch (type)
             {
                 case Unit.ClassType.Artillary:
+                    int thisArcherFleeState;
+                    try{
+                        thisArcherFleeState = ArcherFleeState[squaddie];
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        thisArcherFleeState = 0;
+                        ArcherFleeState.Add(squaddie, thisArcherFleeState);
+                    }
                     float smallestDistance = float.PositiveInfinity;
                     //first, check if there are enemies closer than ArtillaryDesesperoRadius
                     foreach (var enemy in enemiesList)
@@ -212,13 +227,23 @@ namespace RTS.AI
                             smallestDistance = currentDistance;
                         }                        
                     }
-                    if (smallestDistance > ArtillaryDeseperoRadius) //then we are relatively safe, let's find the most weakened enemy
+                    
+                    switch (thisArcherFleeState)
                     {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
+                        case 0:
+                            if (smallestDistance < ArtillaryDeseperoRadius)
+                            {
+                                thisArcherFleeState = 1;
+                            }
+                            return true;
+                            break;
+                        case 1:
+                            if (smallestDistance < ArtillaryDeseperoRadius + artillaryFleeThreshold)
+                                thisArcherFleeState = 0;
+                            return false;
+                        default:
+                            return true;
+                            break;
                     }
                     break;
                 case Unit.ClassType.Infantry:
@@ -255,12 +280,12 @@ namespace RTS.AI
                             closestThreat = enemy;
                         }
                     }
-                    if (smallestDistance < ArtillaryDeseperoRadius) // if there are enemies whoa re too close
+                    if (smallestDistance < ArtillaryDeseperoRadius) // if there are enemies who are too close
                     {
                         Vector3 result = (closestThreat.position - squaddie.position);
                         result.Normalize();
                         //maybe we should multiply result for something here, if it is too small.
-                        return result;
+                        return squaddie.position-result;
                     }
                     else
                     {
