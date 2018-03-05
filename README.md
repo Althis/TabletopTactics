@@ -21,11 +21,13 @@ The continuation of this project is iffy. While multiple members of the team agr
 
 # Gallery
 In-Map
+
 ![In-Map1](https://i.imgur.com/SsZ4IcG.png)
 ![In-Map2](https://i.imgur.com/IEZJqTN.png)
 ![In-Map3](https://i.imgur.com/w42hcgk.png)
 ![In-Map4](https://i.imgur.com/7QmMGgO.png)
 
 Library Scene
+
 ![In-Map4](https://i.imgur.com/7M0P2gO.jpg)
 ![In-Map4](https://i.imgur.com/sjLtOXX.jpg)
