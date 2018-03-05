@@ -20,14 +20,22 @@ The result is more of a very short proof of concept than a proper demo as we wou
 The continuation of this project is iffy. While multiple members of the team agree it is a great idea, we are unable to work on it properly without the VR hardware, and the whole point of the project becomes moot without it. If eventually we gain access to the hardware again, we would very much like to finish the missing features(specially the 2 player mode), do some more playtesting.
 
 # Gallery
-In-Map
+## In-Map
 
-![In-Map1](https://i.imgur.com/SsZ4IcG.png)
+![In-Map1](https://i.imgur.com/jW3ziLz.jpg)
 ![In-Map2](https://i.imgur.com/IEZJqTN.png)
 ![In-Map3](https://i.imgur.com/w42hcgk.png)
 ![In-Map4](https://i.imgur.com/7QmMGgO.png)
 
-Library Scene
+## Library Scene
 
 ![In-Map4](https://i.imgur.com/7M0P2gO.jpg)
 ![In-Map4](https://i.imgur.com/sjLtOXX.jpg)
+
+## Test Library
+
+https://imgur.com/a/cqCod
+
+### Animation Test
+
+https://drive.google.com/file/d/0B3E6Mq8UHfOVVlhHTjRSZXBEQ0E/view?usp=sharing
